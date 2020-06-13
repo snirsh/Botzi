@@ -31,11 +31,20 @@ def receive_message():
             messaging = event['messaging']
             for message in messaging:
                 if message.get('message'):
+                    #TODO: 1: Parsing the user message
                     """
+                    1//
                     THIS IS OUR PLAYBLOCK <- BLOCK CAN BE HERE
+                    what did he say, what it means and so on
                     """
                     # Facebook Messenger ID for user so we know where to send response back to
                     recipient_id = message['sender']['id']
+                    #TODO: 2: Saving the user message in a dictionary somewhere
+                    """
+                    2//
+                    IN THIS BLOCK WE'D LIKE TO SEND THE MESSAGE DATA TO A DICTIONARY HOLDING ALL MESSAGES FROM THE SAME ID
+                    {SENDER_ID: CURRENT_MESSAGE}
+                    """
                     if message['message'].get('text'):
                         response_sent_text = get_message()
                         send_message(recipient_id, response_sent_text)
@@ -43,6 +52,11 @@ def receive_message():
                     if message['message'].get('attachments'):
                         response_sent_nontext = get_message()
                         send_message(recipient_id, response_sent_nontext)
+                    #TODO: 3: Check if the user finished answering all of the questions and sign up
+                    """
+                    3//
+                    LAST BLOCK - USER HAS FINISHED ALL THE QUESTIONS -> SIGN HIM UP!
+                    """
     return "Message Processed"
 
 
@@ -70,4 +84,5 @@ def send_message(recipient_id, response):
 
 
 if __name__ == "__main__":
+    dict_of_users = {}
     app.run()
