@@ -9,7 +9,7 @@ app = Flask(__name__)
 ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
 VERIFY_TOKEN = os.environ['VERIFY_TOKEN']
 WIT_ACCESS_TOKEN = os.environ['WIT_ACCESS_TOKEN']
-print(ACCESS_TOKEN, VERIFY_TOKEN, WIT_ACCESS_TOKEN)
+
 bot = Bot(ACCESS_TOKEN)
 
 wit_client = Wit(WIT_ACCESS_TOKEN)
