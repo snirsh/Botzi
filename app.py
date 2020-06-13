@@ -8,13 +8,13 @@ from wit import Wit
 app = Flask(__name__)
 ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
 VERIFY_TOKEN = os.environ['VERIFY_TOKEN']
-WIT_ACCESS_TOKEN = os.environ['WIT_ACCESS_TOKEN']
+# WIT_ACCESS_TOKEN = os.environ['WIT_ACCESS_TOKEN']
 
 bot = Bot(ACCESS_TOKEN)
-
-wit_client = Wit(WIT_ACCESS_TOKEN)
-resp = wit_client.message("Hi there!")
-print('Yay! got Wit.ai response: ' + str(resp))
+#BLOCK
+# wit_client = Wit(WIT_ACCESS_TOKEN)
+# resp = wit_client.message("Hi there!")
+# print('Yay! got Wit.ai response: ' + str(resp))
 
 @app.route('/', methods=['GET', 'POST'])
 def receive_message():
@@ -31,6 +31,9 @@ def receive_message():
             messaging = event['messaging']
             for message in messaging:
                 if message.get('message'):
+                    """
+                    THIS IS OUR PLAYBLOCK <- BLOCK CAN BE HERE
+                    """
                     # Facebook Messenger ID for user so we know where to send response back to
                     recipient_id = message['sender']['id']
                     if message['message'].get('text'):
