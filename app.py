@@ -3,6 +3,7 @@ import random
 from flask import Flask, request
 from pymessenger.bot import Bot
 import os
+from QuestionsCollection import *
 from wit import Wit
 
 app = Flask(__name__)
@@ -15,6 +16,7 @@ bot = Bot(ACCESS_TOKEN)
 # wit_client = Wit(WIT_ACCESS_TOKEN)
 # resp = wit_client.message("Hi there!")
 # print('Yay! got Wit.ai response: ' + str(resp))
+
 
 @app.route('/', methods=['GET', 'POST'])
 def receive_message():
@@ -45,9 +47,23 @@ def receive_message():
                     IN THIS BLOCK WE'D LIKE TO SEND THE MESSAGE DATA TO A DICTIONARY HOLDING ALL MESSAGES FROM THE SAME ID
                     {SENDER_ID: CURRENT_MESSAGE}
                     """
+
+                    print(message['message']['text'])
+                    quick_reply_ops = [{
+                        "content_type": "text",
+                        "title": "I am awesome",
+                        "payload": "I am more awesome",
+                    }, {
+                        "content_type": "text",
+                        "title": "I am awesome",
+                        "payload": "I am more awesome",
+                    }]
+                    print(message)
+                    print(message['message'])
                     if message['message'].get('text'):
                         response_sent_text = get_message()
                         send_message(recipient_id, response_sent_text)
+                        # send_quick_reply(message, quick_reply_ops, recipient_id)
                     # if user sends us a GIF, photo,video, or any other non-text item
                     if message['message'].get('attachments'):
                         response_sent_nontext = get_message()
@@ -58,6 +74,21 @@ def receive_message():
                     LAST BLOCK - USER HAS FINISHED ALL THE QUESTIONS -> SIGN HIM UP!
                     """
     return "Message Processed"
+
+
+def send_quick_reply(message, quick_reply, recipient_id):
+
+    payload = {
+        'recipient': {
+            'id': recipient_id
+        },
+        "messaging_type": "RESPONSE",
+        "message": {
+            'text': message
+        },
+        "quick_replies": quick_reply
+    }
+    return Bot.send_raw(payload)
 
 
 def verify_fb_token(token_sent):
