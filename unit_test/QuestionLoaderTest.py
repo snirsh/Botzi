@@ -9,6 +9,9 @@ if __name__ == '__main__':
     q1 = tree.get_first_msg()
     print(q1.get_question())
 
+    q = "What's your Name?"
+    questionObj = tree.get_next_question(q)
+
     q2 = tree.get_next_question(q1.get_question(), "volunteer")
 
     print(q2.get_question())

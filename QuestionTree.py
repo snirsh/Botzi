@@ -93,6 +93,12 @@ class QuestionTree:
         return self.find_question(question).get_qstn_obj()
 
     def get_next_question(self, question, ans=""):
+        """
+        get the next question that comes after the answer
+        :param question: string question
+        :param ans: string answer
+        :return: Question object
+        """
         node = self.find_question(question)
         ans = ans.lower()
         if node is not None and node.get_next()[ans] is not None:
