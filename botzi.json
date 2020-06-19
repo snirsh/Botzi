@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "botzi-19152",
+  "private_key_id": "02c6ce3f5afd0bc7f8ba56bebe4d709c31938b93",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDF4Kd28HM1O6Pc\nmupsPjhG0k3JSwbyT0InLbMofS2hkUq3GG+p0PF28BZv6pirzBsaVmQ9SGyEsxej\ncEjBn/LtVGulaexk1J/8wD3dskc7WuVeJFkM8B+V+s9SpXIZpf4e/5SzlTodLoZz\neo67/DWf5VioWHTOAOJ9zTb2X6oSPAAnFu/rFrErVLbzGoyC9+LQG6jrUSOGzCL3\nblMTe8q4OUEG/7xFVswsteLUFEIdMYGwUSj9NviddN+EB31O9Mh339ojYw5uVRaA\nn6TuYL2WN9SMSivMdDwyKjhS0FZ6g7yQ4oVu/aItmSN0tYXsimjXH/IXPruY1Tio\nYz0NbTNBAgMBAAECggEAAs42i595P7CHuEqPPy+C5mCoEw379Eqqw0HQ7eaX83fr\nE3VejG2ipcs9wzKUHW/ydK0zxMFqjfdY0wO2GV4wYFxrfgv2Wr/fwJJ0chirbUBS\nuxLoexAqv3pvzvH68BmIFMYOhH0NttEUfY3H2SsYUsr6dsERz2OocmyK3mOA9psS\nKKwmidaB4SztYRA9JrX3uVWvs74Dra+f+5PJ4FWjQ06fgCD9T19+w43reLY1KSlV\nON4s1wiNqZFbedgRxJSr2fgnrUd3POpZkYJtv+UvSxdbwCR/DeDhMIC3mgrK3zJI\nQx/W3QSWERZqdQBrh/TNZ79BWanlVQJui1Wnje3jEQKBgQDtF9daH9CFLdJAI/3T\nb5adeWcPimeKDsJsMujIqHjQrklnr5btOBQu6KGCVBqktKVTwhJZYEz4k/p1LGOI\ndA5F5MvJgepslH1qwggCJcyhMPdaM0v+JpNEBlswyWTuaPQo/MUvWKZKt7/kayT1\nS4m1jLBmcrENGx6huE9a4+Ht0QKBgQDVqD48TuutCIgUa5YYOfhfETLOiYH6ZJ31\n31xY+1ceNvH8S9LT8g4/PBLawWTFg4ybhzLa65WN37LZLfCe3zjWUzouyGHP15Rq\npHisSRH3gSg1MckJb42BeePEZV/KONAb1//t1DuYXSTGdK+Ilk3CuQ9q4SY/BZq/\nkikGYswacQKBgFPoriSNQeUAVHqywjBEO8+7mYfcecxYcOKOGeh6B1gDdqMld4q4\n4BvB5PcVAODttd0wwAG1nUgURv2VGhy+xhZiZOUJ/4cx/jj8No1cB1G83K2lne1y\nhYf7n+ZiQEBIELE41ChvfVrQMS+L4+aUN0ZzZjK7wIFc6bheXGdUYy8hAoGAZNxp\nlNrE0wiGBO3NC17Ca06ZJ3suit/Y2es5kyADvlW94paAzmEkbKGVXQOS6NLzG7C1\nRzeTgEgsC+5t+vHxyOu9ObyKwC1K+RTvipVsD+U+7+2ys+ufZ5H8/gfFMpejVqGf\nRcy83W6LH8yR2O7rgpMOPixPe8zPgsQi7crSA2ECgYBLYL5GMuyLdqicnkIMb1TR\nXDwMvZQkcPs7qxqqHTimYjenwPUzB3UFEVMPnW+yigpoFM5JGM+ZEsU8zRP3tOp+\ngQH4SCGo5HxTjtc9/P/fOBSzhjgL1UHQ+ksTnT5OzQ9fL/VylFPaalYZdH2aAdGu\n0IdTwMLomYJ+RZBKgd7wXw==\n-----END PRIVATE KEY-----\n",
+  "client_email": "botzi-firestore-service-accoun@botzi-19152.iam.gserviceaccount.com",
+  "client_id": "116117482440442131010",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/botzi-firestore-service-accoun%40botzi-19152.iam.gserviceaccount.com"
+}
