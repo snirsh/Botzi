@@ -47,6 +47,14 @@ class Chat:
     def is_empty(self):
         return len(self._history) == 0
 
+    @staticmethod
+    def string_to_list(str_cur):
+        """
+        :param str_cur: is list we get in str
+        :return: the list of the str
+        """
+        return str_cur.split(',')
+
     def update_final_result(self, fields, fields_functions):
         zip_dict = dict(zip(fields, fields_functions))
         i = 0

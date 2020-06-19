@@ -10,7 +10,7 @@ def initialize_validation_NGO_function():
 
 
 def initialize_validation_volunteer_function():
-    volunteer_list = [None, None, DataValidation.valid_email, DataValidation.valid_phone_number, None, None, None, None, None]
+    volunteer_list = [None, DataValidation.valid_email, DataValidation.valid_phone_number, None, None, None, None, None]
     return volunteer_list
 
 
@@ -20,17 +20,18 @@ def initialize_validation_campaign_function():
 
 
 def initialize_db_NGO_keyword():
-    NGO_list = ['name', 'contact name', 'email', 'skills']
+    NGO_list = ['name', 'contact name', 'mail', 'skills']
     return NGO_list
 
 
 def initialize_db_volunteer_keyword():
-    volunteer_list = ['Name', 'Id', 'Mail', 'Phone number', 'password', 'skills', 'experience level', 'free time', 'preferences']
+    volunteer_list = ['name', 'mail', 'phone number', 'password', 'skills', 'experience level', 'free time',
+                    'preferences']
     return volunteer_list
 
 
 def initialize_db_campaign_keyword():
-    campaign_list = ['name', 'id', 'description', 'Image', 'requirements', 'start Date', 'End Date', 'city']
+    campaign_list = ['name', 'id', 'description', 'requirements', 'start Date', 'End Date', 'city']
     return campaign_list
 
 
