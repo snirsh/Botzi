@@ -15,6 +15,7 @@ from Chat import *
 from QuestionTree import *
 import DataLoader as ql
 from DataValidation import valid_answer
+import FirestoreDb as FDB
 
 app = Flask(__name__)
 ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
@@ -107,6 +108,8 @@ def receive_message():
                 finished = manage_qstns(recipient_id, cur_qstn)
                 if finished:
                     chat.update_final_result()
+                    db = FDB.FirebaseDb()
+                    db.add_collection(chat.get_p_type(), chat.get_final_result())
                     print(chat.get_final_result())
 
                 # # TODO: 2: Saving the user message in a dictionary somewhere

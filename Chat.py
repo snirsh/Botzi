@@ -72,6 +72,7 @@ class Chat:
                     # else:
                     #     valid = True
                     # if valid:
+                    field = field.replace(' ', '_')
                     self._final_result[field] = answer
                 i += 1
             i = 3
