@@ -21,9 +21,11 @@ class FirebaseDb:
         """
         self.ngo_uiqueness_test(ngos_data)
         response = self.ngos_collection.add({
-            u'contact_name': ngos_data["contact_name"],
-            #u'ngo_number': ngos_data["ngo_number"],
-            u'mail': ngos_data["mail"],
+            u'name': ngos_data.get("name"),
+            u'contact_name': ngos_data.get("contact_name"),
+            # u'ngo_number': ngos_data["ngo_number"],
+            u'mail': ngos_data.get("mail"),
+            u'skills': ngos_data.get("skills"),
             #u'website_address': ngos_data["website_address"],
         })
         self.update_ngos(response[1].id, ngos_data)
@@ -51,8 +53,9 @@ class FirebaseDb:
         """
         self.campaign_uiqueness_test(campaign_data)
         response = self.campaign_collection.add({
-            u'id': campaign_data["id"],
+            # u'id': campaign_data["id"],
             u'name': campaign_data["name"],
+            u'requirements': campaign_data["requirements"],
             u'start_date': campaign_data["start_date"],
             u'end_date': campaign_data["end_date"],
 
@@ -77,7 +80,7 @@ class FirebaseDb:
         else:
             self.add_ngo(properties)
 
-    def update_ngos(self, id,dic_update):
+    def update_ngos(self, id, dic_update):
         """
 
         :param id:
@@ -87,7 +90,7 @@ class FirebaseDb:
         ref = self.ngos_collection.document(id)
         ref.update(dic_update)
 
-    def update_campaign(self, id,dic_update):
+    def update_campaign(self, id, dic_update):
         """
 
         :param id:
@@ -96,7 +99,6 @@ class FirebaseDb:
         """
         ref = self.campaign_collection.document(id)
         ref.update(dic_update)
-
 
     def ngo_uiqueness_test(self, ngos_data):
         """
@@ -108,11 +110,10 @@ class FirebaseDb:
         for doc in docs:
             #if ngos_data['ngo_number'] == doc.to_dict()['ngo_number']:
              #   raise Exception("association number is already exists")
-            if ngos_data['mail'] == doc.to_dict()['mail']:
+            if ngos_data.get('mail') is not None and ngos_data.get('mail') == doc.to_dict().get('mail'):
                 raise Exception("mail address is already exists")
             #elif ngos_data['website_address'] == doc.to_dict()['website_address']:
              #   raise Exception("website address is already exists")
-
 
     def volunteer_uiqueness_test(self, volunteer_data):
         """
@@ -122,9 +123,8 @@ class FirebaseDb:
         """
         docs = self.volunteer_collection.stream()
         for doc in docs:
-            if volunteer_data['mail'] == doc.to_dict()['mail']:
+            if volunteer_data.get('mail') is not None and volunteer_data.get('mail') == doc.to_dict().get('mail'):
                 raise Exception("mail address is already exists")
-
 
     def campaign_uiqueness_test(self, campaign_data):
         """
@@ -134,9 +134,8 @@ class FirebaseDb:
         """
         docs = self.campaign_collection.stream()
         for doc in docs:
-            if campaign_data['id'] == doc.to_dict()['id']:
+            if campaign_data.get('id') is not None and campaign_data.get('id') == doc.to_dict().get('id'):
                 raise Exception("id is already exists")
-
 
     def search_ngo(self, id):
         """
@@ -145,7 +144,6 @@ class FirebaseDb:
         :return:
         """
         self.search_collection(self.ngos_collection, id)
-
 
     def search_volunteer(self, id):
         """
@@ -163,8 +161,8 @@ class FirebaseDb:
         """
         self.search_collection(self.campaign_collection, id)
 
-
-    def search_collection(self, collection, id):
+    @staticmethod
+    def search_collection(collection, id):
         docs = collection.stream()
         for doc in docs:
             if doc.id == id:

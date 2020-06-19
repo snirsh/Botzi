@@ -15,7 +15,7 @@ def initialize_validation_volunteer_function():
 
 
 def initialize_validation_campaign_function():
-    campaign_list = [None, None, None, None, DataValidation.valid_date, DataValidation.valid_date, None]
+    campaign_list = [None, None, DataValidation.valid_date, DataValidation.valid_date, None]
     return campaign_list
 
 
@@ -31,7 +31,7 @@ def initialize_db_volunteer_keyword():
 
 
 def initialize_db_campaign_keyword():
-    campaign_list = ['name', 'id', 'description', 'requirements', 'start date', 'end date', 'city']
+    campaign_list = ['name', 'requirements', 'start date', 'end date', 'city']
     return campaign_list
 
 

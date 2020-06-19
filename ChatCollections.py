@@ -19,5 +19,9 @@ class ChatCollections:
 
         return self._chats[id_recipient]
 
+    def remove_chat(self, recipient_id):
+        if recipient_id in self._chats:
+            self._chats.pop(recipient_id)
+
     def delete_chat(self):
         pass

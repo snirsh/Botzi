@@ -106,11 +106,14 @@ def receive_message():
                     chat.add_to_history(sender_id, cur_qstn.get_question())
 
                 finished = manage_qstns(recipient_id, cur_qstn)
+
                 if finished:
                     chat.update_final_result()
-                    db = FDB.FirebaseDb()
-                    db.add_collection(chat.get_p_type(), chat.get_final_result())
                     print(chat.get_final_result())
+                    if len(chat.get_final_result()) != 0:
+                        db = FDB.FirebaseDb()
+                        db.add_collection(chat.get_p_type(), chat.get_final_result())
+                        CHATS.remove_chat(recipient_id)
 
                 # # TODO: 2: Saving the user message in a dictionary somewhere
                 # # Waiting to receive a response
