@@ -12,6 +12,7 @@ from Question import *
 from Chat import *
 from QuestionTree import *
 import DataLoader as ql
+from DataValidation import valid_answer
 
 app = Flask(__name__)
 ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
@@ -78,10 +79,17 @@ def receive_message():
                 if ans:
                     chat.add_to_history(recipient_id, ans)
 
+                is_valid_ans = True
+                if chat.get_msgs_num() > 3:
+                    is_valid_ans = valid_answer(lst_msg, ans, chat)
+
                 # question management:
 
                 if is_chat_empty:
                     cur_qstn = TREE.get_first_msg()
+                elif not is_valid_ans:
+                    send_message(recipient_id, "invalid response")
+                    cur_qstn = TREE.find_question(lst_msg).get_qstn_obj()
                 elif TREE.is_close(lst_msg):
                     cur_qstn = TREE.get_next_question(lst_msg, ans)
                 else:

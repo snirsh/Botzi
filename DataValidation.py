@@ -29,14 +29,14 @@ class DataValidation:
             return phone_number.isdigit()
         return False
 
-    @staticmethod
-    def string_to_list(str_cur):
-        """
-        :param str_cur: is list we get in str
-        :return: the list of the str
-        """
-        return str_cur.split(',')
 
+    @staticmethod
+    def valid_password(password):
+        """
+        :param password: the password str : 6=< len(password) <= 20
+        :return: if is a valid password
+        """
+        return 6 <= len(password) <= 20
 
 
 def _valid_answer(question, answer, fields, fields_functions):
@@ -51,6 +51,8 @@ def _valid_answer(question, answer, fields, fields_functions):
 
 
 def valid_answer(question, answer, chat):
+    print(question)
+    print(answer)
     p_type = chat.get_p_type()
     return _valid_answer(question, answer, dl.get_fields(p_type), dl.get_validation_functions(p_type))
 
