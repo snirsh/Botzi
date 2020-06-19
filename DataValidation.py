@@ -1,7 +1,8 @@
 import re
+import DataLoader as dl
 
 
-class ValidData:
+class DataValidation:
     @staticmethod
     def valid_email(email):
         """
@@ -29,14 +30,28 @@ class ValidData:
         return False
 
     @staticmethod
-    def string_to_list(str):
+    def string_to_list(str_cur):
         """
-            :param str: is list we get in str
-            :return: the list of the str
-            """
-        return str.split(',')
+        :param str_cur: is list we get in str
+        :return: the list of the str
+        """
+        return str_cur.split(',')
 
 
 
+def _valid_answer(question, answer, fields, fields_functions):
+    zip_dict = dict(zip(fields, fields_functions))
+    for field in fields:
+        if field in question:
+            if zip_dict[field]:
+                return zip_dict[field](answer)
+            else:
+                return True
+    return False
+
+
+def valid_answer(question, answer, chat):
+    p_type = chat.get_p_type()
+    return _valid_answer(question, answer, dl.get_fields(p_type), dl.get_validation_functions(p_type))
 
 
