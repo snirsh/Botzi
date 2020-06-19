@@ -31,7 +31,7 @@ def initialize_db_volunteer_keyword():
 
 
 def initialize_db_campaign_keyword():
-    campaign_list = ['name', 'id', 'description', 'requirements', 'start Date', 'End Date', 'city']
+    campaign_list = ['name', 'id', 'description', 'requirements', 'start date', 'end date', 'city']
     return campaign_list
 
 
@@ -76,10 +76,10 @@ def initialize_static_questions(qtree):
     q7 = "What are your requirements? : [type,quantity,domain]"
     qtree.add_question_node(q6, q7)
 
-    q8 = "What is your start campaign Date? : [dd/mm/yyyy]"
+    q8 = "What is your start date campaign? : [dd/mm/yyyy]"
     qtree.add_question_node(q7, q8)
 
-    q9 = "What is your end campaign Date? : [dd/mm/yyyy]"
+    q9 = "What is your end date campaign? : [dd/mm/yyyy]"
     qtree.add_question_node(q8, q9)
 
     q10 = "What is your city campaign?"

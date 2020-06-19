@@ -101,7 +101,7 @@ class QuestionTree:
         """
         node = self.find_question(question)
         ans = ans.lower()
-        if node is not None and node.get_next()[ans] is not None:
+        if node is not None and node.get_next() is not None and node.get_next().get(ans) is not None:
             return node.get_next()[ans].get_qstn_obj()
         return None
 
