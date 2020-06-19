@@ -84,12 +84,16 @@ def receive_message():
                     is_valid_ans = valid_answer(lst_msg, ans, chat)
 
                 # question management:
-
+                if ans == "work" and is_valid_ans is False:
+                    print("NOT GOOD!!")
+                else:
+                    print("??????")
                 if is_chat_empty:
                     cur_qstn = TREE.get_first_msg()
                 elif not is_valid_ans:
                     send_message(recipient_id, "invalid response")
                     cur_qstn = TREE.find_question(lst_msg).get_qstn_obj()
+                    print("!!!!!!")
                 elif TREE.is_close(lst_msg):
                     cur_qstn = TREE.get_next_question(lst_msg, ans)
                 else:
@@ -98,7 +102,10 @@ def receive_message():
                 if cur_qstn is not None:
                     chat.add_to_history(sender_id, cur_qstn.get_question())
 
-                manage_qstns(recipient_id, cur_qstn)
+                finished = manage_qstns(recipient_id, cur_qstn)
+                if finished:
+                    chat.update_final_result()
+                    print(chat.get_final_result())
 
                 # # TODO: 2: Saving the user message in a dictionary somewhere
                 # # Waiting to receive a response
@@ -109,14 +116,22 @@ def receive_message():
 
 
 def manage_qstns(recipient_id, cur_qstn):
+    """
+
+    :param recipient_id:
+    :param cur_qstn:
+    :return: True if we finished to ask all the questions, False otherwise
+    """
     if cur_qstn is None:
         send_message(recipient_id, "Thank you for signing up")
-        return
+        return True
 
     if isinstance(cur_qstn, OpenQuestion):
         send_message(recipient_id, cur_qstn.get_question())
     elif isinstance(cur_qstn, CloseQuestion):
         send_quick_resp(recipient_id, cur_qstn.get_question(), cur_qstn.get_possible_answers())
+
+    return False
 
 
 def verify_fb_token(token_sent):

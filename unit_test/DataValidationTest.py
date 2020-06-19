@@ -35,13 +35,13 @@ class ValidTest(unittest.TestCase):
         self.assertFalse(result5)
         self.assertFalse(result6)
 
-    def test_string_to_list(self):
-        """
-        Test string to list
-        """
-        str = 'a,b,c,d,e,f'
-        result = DataValidation.string_to_list(str)
-        self.assertEqual(result, str.split(','))
+    # def test_string_to_list(self):
+    #     """
+    #     Test string to list
+    #     """
+    #     str = 'a,b,c,d,e,f'
+    #     result = DataValidation.string_to_list(str)
+    #     self.assertEqual(result, str.split(','))
 
     def test_valid_password(self):
         """
