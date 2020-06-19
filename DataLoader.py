@@ -15,7 +15,7 @@ def initialize_validation_volunteer_function():
 
 
 def initialize_validation_campaign_function():
-    campaign_list = [None, None, None, None, None, None, None]
+    campaign_list = [None, None, None, None, DataValidation.valid_date, DataValidation.valid_date, None]
     return campaign_list
 
 

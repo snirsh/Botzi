@@ -1,5 +1,7 @@
 # Python libraries that we need to import for our bot
 import os
+import requests
+
 import random
 from itertools import count
 import json
@@ -171,6 +173,16 @@ def send_message(recipient_id, response):
 def start(port=5000):
     ql.initialize_static_questions(TREE)
     app.run(port=port)
+
+    request_endpoint = '{0}/me/messenger_profile'.format(bot.graph_url)
+    response = requests.post(
+        request_endpoint,
+        params=bot.auth_args,
+        data=json.dumps({"get_started": {"payload": "first"}}),
+        headers={'Content-Type': "application/json"}
+    )
+    result = response.json()
+    Bot.send_raw(response)
 
 
 if __name__ == "__main__":
