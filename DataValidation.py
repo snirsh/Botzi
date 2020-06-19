@@ -1,6 +1,6 @@
 import re
 import DataLoader as dl
-
+import datetime
 
 class DataValidation:
     @staticmethod
@@ -37,6 +37,15 @@ class DataValidation:
         :return: if is a valid password
         """
         return 6 <= len(password) <= 20
+
+    @staticmethod
+    def valid_date(date_text):
+        date_text = date_text.replace('/', '-')
+        try:
+            datetime.datetime.strptime(date_text, '%d-%m-%Y')
+            return True
+        except ValueError:
+            return False
 
 
 def _valid_answer(question, answer, fields, fields_functions):
