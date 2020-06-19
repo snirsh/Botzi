@@ -11,7 +11,7 @@ from ChatCollections import *
 from Question import *
 from Chat import *
 from QuestionTree import *
-import QuestionLoader as ql
+import DataLoader as ql
 
 app = Flask(__name__)
 ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
@@ -73,7 +73,6 @@ def receive_message():
 
                 # answer management:
                 ans = message['message'].get('text')
-
                 lst_msg = chat.get_last_qstn()
 
                 if ans:
