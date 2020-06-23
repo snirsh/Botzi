@@ -1,55 +1,55 @@
-last_question: 
-answers_to:"
-questions:Are you Organization, Campaign or Volunteer?
-answer:organization,volunteer,campaign
+last_question:-
+answers_to:-
+questions:האם אתה ארגון, קמפיין או מתנדב?
+answer:ארגון, התנדבות, קמפיין
 key value:"
-last_question:Are you Organization, Campaign or Volunteer?
-answer_to:organization
-question:What's your organization name?
-answers:"
+last_question:האם אתה ארגון, קמפיין או מתנדב?
+answer_to:אִרגוּן
+question:מה שם הארגון שלך?
+answers:-
 key value:name
-last_question:What's your organization name?
-answers_to:"
-question:Please enter contact name of your organization 
-answers:"
+last_question:מה שם הארגון שלך?
+answers_to:-
+question:אנא הכנס את שם איש הקשר של הארגון שלך
+answers:-
 key value:contact name
-last_question:Please enter contact name of your organization 
-answers_to:"
-question:What is the email of your organization?
-answers:"
+last_question:אנא הכנס את שם איש הקשר של הארגון שלך
+answers_to:-
+question:מה הדוא"ל של הארגון שלך?
+answers:-
 key value:email
-last_question:What is the email of your organization?
-answers_to:"
-question:What are your organization skills?
-answers:"
+last_question:מה הדוא"ל של הארגון שלך?
+answers_to:-
+question:מהן כישורי הארגון שלך?
+answers:-
 key value:skills
-last_question:Are you Organization, Campaign or Volunteer?
-answer_to:volunteer
-question:What's your Name?
-answers:"
+last_question:האם אתה ארגון, קמפיין או מתנדב?
+answer_to:לְהִתְנַדֵב
+question:מה שמך?
+answers:-
 key value:name
-last_question:What's your Name?
-answers_to:"
-question:What's your mail address?
-answers:"
+last_question:מה שמך?
+answers_to:-
+question:מה כתובת הדואר שלך?
+answers:-
 key value:mail
-last_question:What's your mail address?
-answers_to:"
-question:Please enter your phone number - [xxx-xxxxxxx]
-answers:"
+last_question:מה כתובת הדואר שלך?
+answers_to:-
+question:אנא הכנס את מספר הטלפון שלך - [xxx-xxxxxxx]
+answers:-
 key value:phone
-last_question:Please enter your phone number - [xxx-xxxxxxx]
-answers_to:"
-question:Please Enter your password
-answers:"
+last_question:אנא הכנס את מספר הטלפון שלך - [xxx-xxxxxxx]
+answers_to:-
+question:הזן את סיסמתך בבקשה
+answers:-
 key value:password
-last_question:Please Enter your password
-answers_to:"
-question:What are your skills domains? - [X,X,X...]
-answers:"
+last_question:הזן את סיסמתך בבקשה
+answers_to:-
+question:מהם תחומי הכישורים שלך? - [X, X, X ...]
+answers:-
 key value:skills
-last_question:What are your skills domains? - [X,X,X...]
-answers_to:"
-question:What's your free time?
-answers:"
+last_question:מהם תחומי הכישורים שלך? - [X, X, X ...]
+answers_to:-
+question:מה הזמן הפנוי שלך?
+answers:-
 key value:free time
