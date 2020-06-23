@@ -110,6 +110,7 @@ def make_file_for_translate(file_name):
     :param file_name: to make ready to translate
     :return: the name of the new file that ready to translate without the data 'key_value'
     """
+    flag = True
     file_for_translate_name = r'C:\Users\osnat\botzi\file_for_translate.txt'
     f_read = open(file_name, "r")
     f_write = open(file_for_translate_name, "a")
@@ -159,10 +160,11 @@ def make_file_for_translate(file_name):
         else:
             f_read.close()
             f_write.close()
+            flag = False
             break
-
-    f_read.close()
-    f_write.close()
+    if flag:
+        f_read.close()
+        f_write.close()
     return file_for_translate_name
 
 
@@ -299,8 +301,8 @@ def make_translate_file_to_format_file(translate_file_name, english_file_name):
     format_file.close()
     return format_file_name
 
-
-english_file1 = r'C:\Users\osnat\botzi\english.txt'
-translate_file1 = make_file_for_translate(english_file1)
-format_file1 = make_translate_file_to_format_file(translate_file1, english_file1)
-qtree1 = load_question_data(format_file1)
+if __name__ == '__main__':
+    english_file1 = r'C:\Users\osnat\botzi\english.txt'
+    translate_file1 = make_file_for_translate(english_file1)
+    format_file1 = make_translate_file_to_format_file(translate_file1, english_file1)
+    qtree1 = load_question_data(format_file1)
