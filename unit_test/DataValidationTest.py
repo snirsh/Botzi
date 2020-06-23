@@ -1,5 +1,5 @@
 import unittest
-from DataValidation import *
+from DataValidator import *
 
 
 class ValidTest(unittest.TestCase):
@@ -7,10 +7,10 @@ class ValidTest(unittest.TestCase):
         """
         Test that it identified valid email
         """
-        result1 = DataValidation.valid_email('osnato4050@gmail.com')
-        result2 = DataValidation.valid_email('osnato4050@@gmail.com')
-        result3 = DataValidation.valid_email('osnato4050@gmai.l.com')
-        result4 = DataValidation.valid_email('osnato4050gmail.com')
+        result1 = DataValidator.valid_email('osnato4050@gmail.com')
+        result2 = DataValidator.valid_email('osnato4050@@gmail.com')
+        result3 = DataValidator.valid_email('osnato4050@gmai.l.com')
+        result4 = DataValidator.valid_email('osnato4050gmail.com')
 
         self.assertTrue(result1)
         self.assertFalse(result2)
@@ -21,12 +21,12 @@ class ValidTest(unittest.TestCase):
         """
         Test that it identified valid phone number
         """
-        result1 = DataValidation.valid_phone_number('053-9802048')
-        result2 = DataValidation.valid_phone_number('0539802048')
-        result3 = DataValidation.valid_phone_number('053--9802048')
-        result4 = DataValidation.valid_phone_number('053-98020408')
-        result5 = DataValidation.valid_phone_number('0583-9802048')
-        result6 = DataValidation.valid_phone_number('05398020489')
+        result1 = DataValidator.valid_phone_number('053-9802048')
+        result2 = DataValidator.valid_phone_number('0539802048')
+        result3 = DataValidator.valid_phone_number('053--9802048')
+        result4 = DataValidator.valid_phone_number('053-98020408')
+        result5 = DataValidator.valid_phone_number('0583-9802048')
+        result6 = DataValidator.valid_phone_number('05398020489')
 
         self.assertTrue(result1)
         self.assertTrue(result2)
@@ -49,23 +49,23 @@ class ValidTest(unittest.TestCase):
         """
 
         # len(password) < 6
-        result1 = DataValidation.valid_password('12345')
+        result1 = DataValidator.valid_password('12345')
         self.assertFalse(result1)
 
         # len(password) = 6
-        result2 = DataValidation.valid_password('123456')
+        result2 = DataValidator.valid_password('123456')
         self.assertTrue(result2)
 
         # 6 =< len(password) <= 20
-        result3 = DataValidation.valid_password('1234567')
+        result3 = DataValidator.valid_password('1234567')
         self.assertTrue(result3)
 
         # len(password) = 20
-        result4 = DataValidation.valid_password('11111111111111111111')
+        result4 = DataValidator.valid_password('11111111111111111111')
         self.assertTrue(result4)
 
         # len(password) > 20
-        result5 = DataValidation.valid_password('1111111111111111111111')
+        result5 = DataValidator.valid_password('1111111111111111111111')
         self.assertFalse(result5)
 
 

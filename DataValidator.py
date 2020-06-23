@@ -4,23 +4,37 @@ import datetime
 # import FirestoreDb as fb
 
 
-class DataValidation:
-    @staticmethod
-    def valid_email(email):
+class DataValidator:
+
+    def __init__(self, db):
+        self._db = db
+        self._p_type = ""
+        self._validator_matcher = {
+            "mail": self.valid_email,
+            "phone": DataValidator.valid_phone_number,
+            "password": DataValidator.valid_password,
+            "start date": DataValidator.valid_date,
+            "end date": DataValidator.valid_date
+        }
+
+    def valid_email(self, email):
         """
        :param email: need to be appropriate to regex
        :return: if is a valid email address
        """
         regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
-        # pass the regular expression
-        # and the string in search() method
 
-        # db = fb.FirebaseDb()
-        # is_exist = db.is_email_exist()
+        if not re.search(regex, email):
+            raise ValueError("Email is not valid")
+        self._db.is_email_exist(email, self._p_type)
 
-        if re.search(regex, email):
-            return True
-        return False
+    def valid_answer(self, question, answer, chat):
+        self._p_type = chat.get_p_type()
+        return self._valid_answer(
+            question,
+            answer,
+            dl.get_fields(self._p_type)
+        )
 
     @staticmethod
     def valid_phone_number(phone_number):
@@ -30,11 +44,12 @@ class DataValidation:
             """
         if len(phone_number) == 11 and '-' in phone_number:
             number = phone_number[0:3] + phone_number[4:11]
-            return number.isdigit()
+            if number.isdigit():
+                return
         elif len(phone_number) == 10:
-            return phone_number.isdigit()
-        return False
-
+            if phone_number.isdigit():
+                return
+        raise ValueError("Phone number is not valid")
 
     @staticmethod
     def valid_password(password):
@@ -42,33 +57,29 @@ class DataValidation:
         :param password: the password str : 6=< len(password) <= 20
         :return: if is a valid password
         """
-        return 6 <= len(password) <= 20
+        if 6 > len(password) or len(password) > 20:
+            raise ValueError("Password must be between 6 to 20 characters")
 
     @staticmethod
     def valid_date(date_text):
         date_text = date_text.replace('/', '-')
         try:
             datetime.datetime.strptime(date_text, '%d-%m-%Y')
-            return True
         except ValueError:
-            return False
+            raise ValueError("Date must be in the format \"DD/MM/YYYY\" ")
+
+    def _valid_answer(self, question, answer, fields):
+        # zip_dict = dict(zip(fields, fields_functions))
+        for field in fields:
+            if field in question:
+                if field in self._validator_matcher:
+                    return self._validator_matcher[field](answer)
 
 
-def _valid_answer(question, answer, fields, fields_functions):
-    zip_dict = dict(zip(fields, fields_functions))
-    for field in fields:
-        if field in question:
-            if zip_dict[field]:
-                return zip_dict[field](answer)
-            else:
-                return True
-    return False
-
-
-def valid_answer(question, answer, chat):
-    print(question)
-    print(answer)
-    p_type = chat.get_p_type()
-    return _valid_answer(question, answer, dl.get_fields(p_type), dl.get_validation_functions(p_type))
+# def valid_answer(question, answer, chat):
+#     print(question)
+#     print(answer)
+#     p_type = chat.get_p_type()
+#     return _valid_answer(question, answer, dl.get_fields(p_type), dl.get_validation_functions(p_type))
 
 

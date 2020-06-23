@@ -1,0 +1,26 @@
+last_question: ""
+answers_to: ""
+questions: Are you Association, Campaign or Volunteer?
+answer: organization, volunteer, campaign
+
+last_question: Are you Association, Campaign or Volunteer?
+answer_to: organization
+question: What's your organization name?
+answer: []
+
+last_question: What's your organization name?
+answer_to: 
+question: What's your organization name?
+answer: []
+
+last_question: 
+answer_to: organization
+question: What's your organization name?
+answer: []
+
+last_question: 
+answer_to: organization
+question: What's your organization name?
+answer: []
+
+

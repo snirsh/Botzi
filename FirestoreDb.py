@@ -1,49 +1,48 @@
 import os
 from google.cloud import firestore
 from DataLoader import USER_TYPES
-#import self as self
 
 
 class FirebaseDb:
     def __init__(self):
         """
         """
-        db = firestore.Client()
-        self.ngos_collection = db.collection(u'Ngos')
-        self.volunteer_collection = db.collection(u'Volunteers')
-        self.campaign_collection = db.collection(u'Campaigns')
+        self._db = firestore.Client()
+        self.organization_collection = self._db.collection(u'Organizations')
+        self.volunteer_collection = self._db.collection(u'Volunteers')
+        self.campaign_collection = self._db.collection(u'Campaigns')
 
-    def add_ngo(self, ngos_data):
+    def add_organization(self, data):
         """
-
-        :param ngos_data:
+        add new organization to the database
+        :param data:
         :return:
         """
-        self.ngo_uiqueness_test(ngos_data)
-        response = self.ngos_collection.add({
-            u'name': ngos_data.get("name"),
-            u'contact_name': ngos_data.get("contact_name"),
-            # u'ngo_number': ngos_data["ngo_number"],
-            u'mail': ngos_data.get("mail"),
-            u'skills': ngos_data.get("skills"),
+        self.organization_uiqueness(data.get('mail'))
+        response = self.organization_collection.add({
+            u'name': data.get("name"),
+            u'contact_name': data.get("contact_name"),
+            u'contact_phone': data.get("phone"),
+            u'mail': data.get("mail"),
+            u'campaigns': []
             #u'website_address': ngos_data["website_address"],
         })
-        self.update_ngos(response[1].id, ngos_data)
 
     def add_volunteer(self, volunteers_data):
         """
-
+        add a volunteer to the database
         :param volunteers_data:
         :return:
         """
-        self.volunteer_uiqueness_test(volunteers_data)
+        self.volunteer_uiqueness(volunteers_data.get('mail'))
         response = self.volunteer_collection.add({
-            u'name': volunteers_data["name"],
-            u'skills': volunteers_data["skills"],
-            u'mail': volunteers_data["mail"],
-            u'free_time': volunteers_data["free_time"],
+            u'fname': volunteers_data.get("name").lower(),
+            u'skills': volunteers_data.get("skills"),
+            u'mail': volunteers_data.get("mail"),
+            u'free_time': volunteers_data.get("free_time"),
+            u'password': volunteers_data.get("password"),
+            u'phone': volunteers_data.get('phone')
         })
-        self.update_volunteer(response[1].id, volunteers_data)
 
     def add_campaign(self, campaign_data):
         """
@@ -51,7 +50,7 @@ class FirebaseDb:
         :param ngos_data:
         :return:
         """
-        self.campaign_uiqueness_test(campaign_data)
+        self.campaign_uiqueness(campaign_data.get('mail'))
         response = self.campaign_collection.add({
             # u'id': campaign_data["id"],
             u'name': campaign_data["name"],
@@ -61,6 +60,48 @@ class FirebaseDb:
 
         })
         self.update_campaign(response[1].id, campaign_data)
+
+    def organization_uiqueness(self, mail):
+        """
+        :param mail:
+        :return:
+        """
+        docs = self.organization_collection.where(u'mail', u'==', f'{mail}').stream()
+        for doc in docs:
+            raise ValueError("Email already exists")
+
+    def volunteer_uiqueness(self, mail):
+        """
+
+        :param volunteer_data:
+        :return:
+        """
+        docs = self.volunteer_collection.where(u'mail', u'==', f'{mail}').stream()
+        for doc in docs:
+            raise ValueError("Email already exists")
+
+    def campaign_uiqueness(self, mail):
+        """
+
+        :param volunteer_data:
+        :return:
+        """
+        docs = self.campaign_collection.where(u'mail', u'==', f'{mail}').stream()
+        for doc in docs:
+            raise ValueError("Email already exists")
+
+    def is_email_exist(self, mail, p_type):
+        """
+        check if the mail is existing in one of the db collections
+        :param mail:
+        :param p_type:
+        :return:
+        """
+        if p_type == USER_TYPES[0]:
+            return self.volunteer_uiqueness(mail)
+        if p_type == USER_TYPES[1]:
+            return self.add_campaign(mail)
+        return self.organization_uiqueness(mail)
 
     def update_volunteer(self, id, dic_update):
         """
@@ -78,7 +119,7 @@ class FirebaseDb:
         elif p_type == USER_TYPES[1]:
             self.add_campaign(properties)
         else:
-            self.add_ngo(properties)
+            self.add_organization(properties)
 
     def update_ngos(self, id, dic_update):
         """
@@ -87,7 +128,7 @@ class FirebaseDb:
         :param dic_update:
         :return:
         """
-        ref = self.ngos_collection.document(id)
+        ref = self.organization_collection.document(id)
         ref.update(dic_update)
 
     def update_campaign(self, id, dic_update):
@@ -100,42 +141,7 @@ class FirebaseDb:
         ref = self.campaign_collection.document(id)
         ref.update(dic_update)
 
-    def ngo_uiqueness_test(self, ngos_data):
-        """
 
-        :param ngos_data:
-        :return:
-        """
-        docs = self.ngos_collection.stream()
-        for doc in docs:
-            #if ngos_data['ngo_number'] == doc.to_dict()['ngo_number']:
-             #   raise Exception("association number is already exists")
-            if ngos_data.get('mail') is not None and ngos_data.get('mail') == doc.to_dict().get('mail'):
-                raise Exception("mail address is already exists")
-            #elif ngos_data['website_address'] == doc.to_dict()['website_address']:
-             #   raise Exception("website address is already exists")
-
-    def volunteer_uiqueness_test(self, volunteer_data):
-        """
-
-        :param volunteer_data:
-        :return:
-        """
-        docs = self.volunteer_collection.stream()
-        for doc in docs:
-            if volunteer_data.get('mail') is not None and volunteer_data.get('mail') == doc.to_dict().get('mail'):
-                raise Exception("mail address is already exists")
-
-    def campaign_uiqueness_test(self, campaign_data):
-        """
-
-        :param volunteer_data:
-        :return:
-        """
-        docs = self.campaign_collection.stream()
-        for doc in docs:
-            if campaign_data.get('id') is not None and campaign_data.get('id') == doc.to_dict().get('id'):
-                raise Exception("id is already exists")
 
     def search_ngo(self, id):
         """
@@ -143,7 +149,7 @@ class FirebaseDb:
         :param id:
         :return:
         """
-        self.search_collection(self.ngos_collection, id)
+        self.search_collection(self.organization_collection, id)
 
     def search_volunteer(self, id):
         """
@@ -167,3 +173,37 @@ class FirebaseDb:
         for doc in docs:
             if doc.id == id:
                 print(doc.to_dict())
+
+
+if __name__ == '__main__':
+    db = FirebaseDb()
+    v1 = {
+        "name": "daniel",
+        "mail": "something@gmail.com",
+        "password": "123456",
+        "phone": "054-2223331",
+        "skills": ["skill1", "skill2"]
+    }
+
+    id = "UqmoV7XYPJO5A0aRDlja"
+    refs = db.volunteer_collection
+    print("volunteer ref:")
+
+    volname = refs.where(u'fname', u'==', 'danielle')
+    print(f'{volname.get()}')
+
+    volunteers = volname.stream()
+    print(f"type of volunteers is {type(volunteers)}")
+    print(f"the object looks like {volunteers}")
+
+    try:
+        db.volunteer_uiqueness("something23@gmail.com")
+    except ValueError as err:
+        print(err)
+
+    for volunteer in volunteers:
+        print(f'type of single volunteer is {type(volunteer)}')
+        print(f'{volunteer.id} => {volunteer.to_dict()}')
+
+
+
