@@ -141,8 +141,6 @@ class FirebaseDb:
         ref = self.campaign_collection.document(id)
         ref.update(dic_update)
 
-
-
     def search_ngo(self, id):
         """
 

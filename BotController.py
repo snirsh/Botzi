@@ -22,14 +22,18 @@ class BotController:
         is_chat_empty = chat.is_empty()
 
         # answer management:
-        last_question = chat.get_last_qstn()
+        question_str = chat.get_last_qstn()
+        last_question = self._qtree.find_question(question_str)
+        if not is_chat_empty:
+            chat.add_to_history(recipient_id, ans, last_question.get_key())
 
-        chat.add_to_history(recipient_id, ans)
-
+        print(f'last_question: {question_str}')
+        print(f'answer: {ans}')
+        print(f'nums of msgs: {chat.get_msgs_num()}')
         is_valid_ans = True
-        if chat.get_msgs_num() > 3:
+        if chat.get_msgs_num() >= 3:
             try:
-                self._data_validator.valid_answer(last_question, ans, chat)
+                self._data_validator.valid_answer(ans, last_question.get_key(), chat)
             except ValueError as err:
                 is_valid_ans = False
                 self._send_message(recipient_id, err.__str__())
@@ -39,14 +43,14 @@ class BotController:
             cur_qstn = self._qtree.get_first_msg()
         elif not is_valid_ans:
             # self._send_message(recipient_id, "invalid response")
-            cur_qstn = self._qtree.find_question(last_question).get_qstn_obj()
-        elif self._qtree.is_close(last_question):
-            cur_qstn = self._qtree.get_next_question(last_question, ans)
+            cur_qstn = self._qtree.find_question(question_str)
+        elif self._qtree.is_close(question_str):
+            cur_qstn = self._qtree.get_next_question(question_str, ans)
         else:
-            cur_qstn = self._qtree.get_next_question(last_question)
+            cur_qstn = self._qtree.get_next_question(question_str)
 
         if cur_qstn is not None:
-            chat.add_to_history(sender_id, cur_qstn.get_question())
+            chat.add_to_history(sender_id, cur_qstn.get_question(), "")
 
         finished = self._manage_questions(recipient_id, cur_qstn)
 

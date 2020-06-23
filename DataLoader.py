@@ -56,51 +56,51 @@ def get_validation_functions(p_type):
 def initialize_static_questions(qtree):
     q1 = "Are you Association, Campaign or Volunteer?"
     ans1 = ["association", 'volunteer', 'campaign']
-    qtree.add_question_node("", q1, answers=ans1)
+    qtree.add_question_node("", q1, "type", answers=ans1)
 
     q2 = "What's your Association name?"
-    qtree.add_question_node(q1, q2, answer="association")
+    qtree.add_question_node(q1, q2, "name", answer="association")
 
     q3 = "Please enter contact name of your association"
-    qtree.add_question_node(q2, q3)
+    qtree.add_question_node(q2, q3, "contact name")
 
     q4 = "What is the email of your association?"
-    qtree.add_question_node(q3, q4)
+    qtree.add_question_node(q3, q4, "mail")
 
     q5 = "What is your association phone number? [xxx-xxxxxxx]"
-    qtree.add_question_node(q4, q5)
+    qtree.add_question_node(q4, q5, "phone")
 
     q6 = "What's your campaign name?"
-    qtree.add_question_node(q1, q6, answer="campaign")
+    qtree.add_question_node(q1, q6, "name", answer="campaign")
 
     q7 = "What are your requirements? : [type,quantity,domain]"
-    qtree.add_question_node(q6, q7)
+    qtree.add_question_node(q6, q7, "requirements")
 
     q8 = "What is your start date campaign? : [dd/mm/yyyy]"
-    qtree.add_question_node(q7, q8)
+    qtree.add_question_node(q7, q8, "start date")
 
     q9 = "What is your end date campaign? : [dd/mm/yyyy]"
-    qtree.add_question_node(q8, q9)
+    qtree.add_question_node(q8, q9, "end date")
 
     q10 = "What is your city campaign?"
-    qtree.add_question_node(q9, q10)
+    qtree.add_question_node(q9, q10, "city")
 
     # volunteer
     q12 = "What's your Name?"
-    qtree.add_question_node(q1, q12, answer="volunteer")
+    qtree.add_question_node(q1, q12, "name", answer="volunteer")
 
     q13 = "What's your mail address?"
-    qtree.add_question_node(q12, q13)
+    qtree.add_question_node(q12, q13, "mail")
 
     q14 = "Please enter your phone number : [xxx-xxxxxxx]"
-    qtree.add_question_node(q13, q14)
+    qtree.add_question_node(q13, q14, "phone")
 
     q15 = "Please Enter your password"
-    qtree.add_question_node(q14, q15)
+    qtree.add_question_node(q14, q15, "password")
 
     q16 = "What are your skills domains? :[X,X,X...]"
-    qtree.add_question_node(q15, q16)
+    qtree.add_question_node(q15, q16, "skills")
 
     q17 = "What's your free time?"
-    qtree.add_question_node(q16, q17, answers=['Free', 'open', 'here and there', 'only one day per week'])
+    qtree.add_question_node(q16, q17, "free time", answers=['Free', 'open', 'here and there', 'only one day per week'])
 

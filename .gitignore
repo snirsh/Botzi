@@ -74,6 +74,6 @@ fabric.properties
 
 __pycache__
 .idea
-
+old_files
 botzi.json
 botzi-dev-env.json

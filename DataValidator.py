@@ -28,12 +28,11 @@ class DataValidator:
             raise ValueError("Email is not valid")
         self._db.is_email_exist(email, self._p_type)
 
-    def valid_answer(self, question, answer, chat):
+    def valid_answer(self, answer, field, chat):
         self._p_type = chat.get_p_type()
         return self._valid_answer(
-            question,
             answer,
-            dl.get_fields(self._p_type)
+            field
         )
 
     @staticmethod
@@ -68,18 +67,8 @@ class DataValidator:
         except ValueError:
             raise ValueError("Date must be in the format \"DD/MM/YYYY\" ")
 
-    def _valid_answer(self, question, answer, fields):
-        # zip_dict = dict(zip(fields, fields_functions))
-        for field in fields:
-            if field in question:
-                if field in self._validator_matcher:
-                    return self._validator_matcher[field](answer)
-
-
-# def valid_answer(question, answer, chat):
-#     print(question)
-#     print(answer)
-#     p_type = chat.get_p_type()
-#     return _valid_answer(question, answer, dl.get_fields(p_type), dl.get_validation_functions(p_type))
+    def _valid_answer(self, answer, field):
+        if field in self._validator_matcher:
+            return self._validator_matcher[field](answer)
 
 
