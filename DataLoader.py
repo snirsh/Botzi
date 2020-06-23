@@ -1,7 +1,9 @@
+import os
+
 from QuestionTree import *
 from DataValidation import *
 from googletrans import Translator
-
+import codecs
 USER_TYPES = ["volunteer", "campaign", "association"]
 
 
@@ -112,9 +114,10 @@ def make_file_for_translate(file_name):
     :return: the name of the new file that ready to translate without the data 'key_value'
     """
     flag = True
-    file_for_translate_name = r'C:\Users\osnat\botzi\file_for_translate.txt'
-    f_read = open(file_name, "r")
-    f_write = open(file_for_translate_name, "a")
+    script_dir = os.path.dirname(__file__)
+    file_for_translate_name = script_dir + r'\file_for_translate.txt'
+    f_read = codecs.open(file_name, "r", "utf-8")
+    f_write = codecs.open(file_for_translate_name, "a", "utf-8")
     while f_read and f_write:
         last_question = f_read.readline()
         if not last_question == '"""' and last_question:  # if its not the end of the file
@@ -175,7 +178,7 @@ def load_question_data(file_name):
     :return: the QuestionTree collection of the file 'file_name'
     """
     question_tree = QuestionTree()
-    f = open(file_name, "r")
+    f = codecs.open(file_name, "r", "utf-8")
     while f:
         last_question = f.readline()
         if not last_question == '"""' and last_question:  # if its not the end of the file
@@ -232,10 +235,11 @@ def make_translate_file_to_format_file(translate_file_name, english_file_name):
     :param english_file_name: a name of the translate file before translate - in english
     :return: a name of a new translate file  in the appropriate format
     """
-    format_file_name = r'C:\Users\osnat\botzi\translate_file_in_format.txt'
-    translate_file = open(translate_file_name, 'r')
-    english_file = open(english_file_name, 'r')
-    format_file = open(format_file_name, 'a')
+    script_dir = os.path.dirname(__file__)
+    format_file_name = script_dir + r'\translate_file_in_format.txt'
+    translate_file = codecs.open(translate_file_name, 'r', "utf-8")
+    english_file = codecs.open(english_file_name, 'r', "utf-8")
+    format_file = codecs.open(format_file_name, 'a', "utf-8")
 
     while translate_file and english_file and format_file:
 
@@ -321,15 +325,35 @@ def translate_to_hebrew(translate_file_name):
     f_en = open(translate_file_name, 'r')
     data = f_en.read()
     result = translator.translate(data, src='en', dest='he').text
-    f_en_name = r'C:\Users\osnat\botzi\file_translate_to_hebrew.txt'
-    f_eb = open(f_en_name, 'w')
+    script_dir = os.path.dirname(__file__)
+    f_eb_name = script_dir + r'\file_translate_to_hebrew.txt'
+    f_eb = codecs.open(f_eb_name, 'w', "utf-8")
     f_eb.write(result)
-    return f_en_name
+    return f_eb_name
+
+
+def translate_to_france(translate_file_name):
+    """
+    :param translate_file_name: a file with text in English
+    :return: a name of the translate file to france
+    """
+    translator = Translator()
+    f_en = open(translate_file_name, 'r')
+    data = f_en.read()
+    result = translator.translate(data, src='en', dest='fr').text
+    script_dir = os.path.dirname(__file__)
+    f_fr_name = script_dir + r'\file_translate_to_france.txt'
+    f_fr = codecs.open(f_fr_name, 'w', "utf-8")
+    f_fr.write(result)
+    return f_fr_name
+
 
 
 if __name__ == '__main__':
-    english_file1 = r'C:\Users\osnat\botzi\english.txt'
+    script_dir = os.path.dirname(__file__)
+    english_file1 = script_dir + r'\english.txt'
     for_translate_file1 = make_file_for_translate(english_file1)
-    translate_file1 = translate_to_hebrew(for_translate_file1)
+    #translate_file1 = translate_to_hebrew(for_translate_file1)
+    translate_file1 = translate_to_france(for_translate_file1)
     format_file1 = make_translate_file_to_format_file(translate_file1, english_file1)
     qtree1 = load_question_data(format_file1)

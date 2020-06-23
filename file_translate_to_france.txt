@@ -1,0 +1,44 @@
+-
+-
+Êtes-vous une organisation, une campagne ou un bénévole?
+organisation, bénévole, campagne
+Êtes-vous une organisation, une campagne ou un bénévole?
+organisation
+Quel est le nom de votre organisation?
+-
+Quel est le nom de votre organisation?
+-
+Veuillez saisir le nom du contact de votre organisation
+-
+Veuillez saisir le nom du contact de votre organisation
+-
+Quel est l'email de votre organisation?
+-
+Quel est l'email de votre organisation?
+-
+Quelles sont vos compétences d'organisation?
+-
+Êtes-vous une organisation, une campagne ou un bénévole?
+bénévole
+Comment tu t'appelles?
+-
+Comment tu t'appelles?
+-
+Quelle est votre adresse mail?
+-
+Quelle est votre adresse mail?
+-
+Veuillez entrer votre numéro de téléphone - [xxx-xxxxxxx]
+-
+Veuillez entrer votre numéro de téléphone - [xxx-xxxxxxx]
+-
+S'il vous plait entrez votre mot de passe
+-
+S'il vous plait entrez votre mot de passe
+-
+Quels sont vos domaines de compétences? - [X, X, X ...]
+-
+Quels sont vos domaines de compétences? - [X, X, X ...]
+-
+Quel est ton temps libre?
+-

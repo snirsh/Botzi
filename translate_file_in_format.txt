@@ -1,55 +1,55 @@
 last_question:-
 answers_to:-
-questions:האם אתה ארגון, קמפיין או מתנדב?
-answer:ארגון, התנדבות, קמפיין
+questions:ֳtes-vous une organisation, une campagne ou un bֳ©nֳ©vole?
+answer:organisation, bֳ©nֳ©vole, campagne
 key value:"
-last_question:האם אתה ארגון, קמפיין או מתנדב?
-answer_to:אִרגוּן
-question:מה שם הארגון שלך?
+last_question:ֳtes-vous une organisation, une campagne ou un bֳ©nֳ©vole?
+answer_to:organisation
+question:Quel est le nom de votre organisation?
 answers:-
 key value:name
-last_question:מה שם הארגון שלך?
+last_question:Quel est le nom de votre organisation?
 answers_to:-
-question:אנא הכנס את שם איש הקשר של הארגון שלך
+question:Veuillez saisir le nom du contact de votre organisation
 answers:-
 key value:contact name
-last_question:אנא הכנס את שם איש הקשר של הארגון שלך
+last_question:Veuillez saisir le nom du contact de votre organisation
 answers_to:-
-question:מה הדוא"ל של הארגון שלך?
+question:Quel est l'email de votre organisation?
 answers:-
 key value:email
-last_question:מה הדוא"ל של הארגון שלך?
+last_question:Quel est l'email de votre organisation?
 answers_to:-
-question:מהן כישורי הארגון שלך?
+question:Quelles sont vos compֳ©tences d'organisation?
 answers:-
 key value:skills
-last_question:האם אתה ארגון, קמפיין או מתנדב?
-answer_to:לְהִתְנַדֵב
-question:מה שמך?
+last_question:ֳtes-vous une organisation, une campagne ou un bֳ©nֳ©vole?
+answer_to:bֳ©nֳ©vole
+question:Comment tu t'appelles?
 answers:-
 key value:name
-last_question:מה שמך?
+last_question:Comment tu t'appelles?
 answers_to:-
-question:מה כתובת הדואר שלך?
+question:Quelle est votre adresse mail?
 answers:-
 key value:mail
-last_question:מה כתובת הדואר שלך?
+last_question:Quelle est votre adresse mail?
 answers_to:-
-question:אנא הכנס את מספר הטלפון שלך - [xxx-xxxxxxx]
+question:Veuillez entrer votre numֳ©ro de tֳ©lֳ©phone - [xxx-xxxxxxx]
 answers:-
 key value:phone
-last_question:אנא הכנס את מספר הטלפון שלך - [xxx-xxxxxxx]
+last_question:Veuillez entrer votre numֳ©ro de tֳ©lֳ©phone - [xxx-xxxxxxx]
 answers_to:-
-question:הזן את סיסמתך בבקשה
+question:S'il vous plait entrez votre mot de passe
 answers:-
 key value:password
-last_question:הזן את סיסמתך בבקשה
+last_question:S'il vous plait entrez votre mot de passe
 answers_to:-
-question:מהם תחומי הכישורים שלך? - [X, X, X ...]
+question:Quels sont vos domaines de compֳ©tences? - [X, X, X ...]
 answers:-
 key value:skills
-last_question:מהם תחומי הכישורים שלך? - [X, X, X ...]
+last_question:Quels sont vos domaines de compֳ©tences? - [X, X, X ...]
 answers_to:-
-question:מה הזמן הפנוי שלך?
+question:Quel est ton temps libre?
 answers:-
 key value:free time
