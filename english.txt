@@ -1,4 +1,4 @@
-last_question: 
+last_question:"
 answers_to:"
 questions:Are you Organization, Campaign or Volunteer?
 answer:organization,volunteer,campaign

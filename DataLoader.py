@@ -1,5 +1,6 @@
 from QuestionTree import *
 from DataValidation import *
+from googletrans import Translator
 
 USER_TYPES = ["volunteer", "campaign", "association"]
 
@@ -126,13 +127,13 @@ def make_file_for_translate(file_name):
             if len(last_question) > 1 and '"' not in last_question[1]:
                 last_question = last_question[1]
             else:
-                last_question = "\n"
+                last_question = "-\n"
 
             answer_to = answer_to.split(':')
             if len(answer_to) > 1 and '"' not in answer_to[1]:
                 answer_to = answer_to[1]
             else:
-                answer_to = "\n"
+                answer_to = "-\n"
 
             question = question.split(':')
             if len(question) > 1 and '"' not in question[1]:
@@ -144,7 +145,7 @@ def make_file_for_translate(file_name):
             if len(answers) > 1 and '"' not in answers[1]:
                 answers = answers[1]
             else:
-                answers = "\n"
+                answers = "-\n"
 
             key_value = key_value.split(':')
             if len(key_value) > 1 and '"' not in key_value[1]:
@@ -184,32 +185,32 @@ def load_question_data(file_name):
             key_value = f.readline()
 
             last_question = last_question.split(':')
-            if len(last_question) > 1 and '"' not in last_question[1]:
+            if len(last_question) > 1 and '"' not in last_question[1] or '-' not in last_question[1]:
                 last_question = last_question[1].rstrip()
             else:
                 last_question = ""
 
             answer_to = answer_to.split(':')
-            if len(answer_to) > 1 and '"' not in answer_to[1]:
+            if len(answer_to) > 1 and '"' not in answer_to[1] or '-' not in answer_to[1]:
                 answer_to = answer_to[1].rstrip()
             else:
                 answer_to = ""
 
             question = question.split(':')
-            if len(question) > 1 and '"' not in question[1]:
+            if len(question) > 1 and '"' not in question[1] or '-' not in question[1]:
                 question = question[1].rstrip()
             else:  # don't need to happen
                 raise ValueError("error: no question text")
 
             answers = answers.split(':')
-            if len(answers) > 1 and '"' not in answers[1]:
+            if len(answers) > 1 and '"' not in answers[1] or '-' not in answers[1]:
                 answers = answers[1].split(',')
                 answers[-1] = answers[-1].rstrip()
             else:
                 answers = None
 
             key_value = key_value.split(':')
-            if len(key_value) > 1 and '"' not in key_value[1]:
+            if len(key_value) > 1 and '"' not in key_value[1] or '-' not in key_value[1]:
                 key_value = key_value[1].rstrip()
             else:
                 key_value = ""
@@ -255,6 +256,15 @@ def make_translate_file_to_format_file(translate_file_name, english_file_name):
             if translate_answers == '\n':
                 translate_answers = '"\n'
 
+            if translate_last_question == "" or not translate_last_question[-1] == "\n":
+                translate_last_question += '\n'
+            if translate_answer_to == "" or not translate_answer_to[-1] == "\n":
+                translate_answer_to += '\n'
+            if translate_question == "" or not translate_question[-1] == "\n":
+                translate_question += '\n'
+            if translate_answers == "" or not translate_answers[-1] == "\n":
+                translate_answers += '\n'
+
             english_answer_to = english_file.readline()
             english_question = english_file.readline()
             english_answers = english_file.readline()
@@ -262,25 +272,25 @@ def make_translate_file_to_format_file(translate_file_name, english_file_name):
 
             english_last_question = english_last_question.split(':')
             if len(english_last_question) > 1 and '"' not in english_last_question[1]:
-                english_last_question = english_last_question[0]+':'
+                english_last_question = english_last_question[0] + ':'
             else:
                 english_last_question = "last_question:"
 
             english_answer_to = english_answer_to.split(':')
             if len(english_answer_to) > 1 and '"' not in english_answer_to[1]:
-                english_answer_to = english_answer_to[0]+':'
+                english_answer_to = english_answer_to[0] + ':'
             else:
                 english_answer_to = "answers_to:"
 
             english_question = english_question.split(':')
             if len(english_question) > 1 and '"' not in english_question[1]:
-                english_question = english_question[0]+':'
+                english_question = english_question[0] + ':'
             else:  # don't need to happen
                 raise ValueError("error: no question text")
 
             english_answers = english_answers.split(':')
             if len(english_answers) > 1 and '"' not in english_answers[1]:
-                english_answers = english_answers[0]+':'
+                english_answers = english_answers[0] + ':'
             else:
                 english_answers = "answers:"
 
@@ -301,8 +311,25 @@ def make_translate_file_to_format_file(translate_file_name, english_file_name):
     format_file.close()
     return format_file_name
 
+
+def translate_to_hebrew(translate_file_name):
+    """
+    :param translate_file_name: a file with text in English
+    :return: a name of the translate file to hebrew
+    """
+    translator = Translator()
+    f_en = open(translate_file_name, 'r')
+    data = f_en.read()
+    result = translator.translate(data, src='en', dest='he').text
+    f_en_name = r'C:\Users\osnat\botzi\file_translate_to_hebrew.txt'
+    f_eb = open(f_en_name, 'w')
+    f_eb.write(result)
+    return f_en_name
+
+
 if __name__ == '__main__':
     english_file1 = r'C:\Users\osnat\botzi\english.txt'
-    translate_file1 = make_file_for_translate(english_file1)
+    for_translate_file1 = make_file_for_translate(english_file1)
+    translate_file1 = translate_to_hebrew(for_translate_file1)
     format_file1 = make_translate_file_to_format_file(translate_file1, english_file1)
     qtree1 = load_question_data(format_file1)
