@@ -1,6 +1,8 @@
 import re
 import DataLoader as dl
 import datetime
+# import FirestoreDb as fb
+
 
 class DataValidation:
     @staticmethod
@@ -12,6 +14,10 @@ class DataValidation:
         regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
         # pass the regular expression
         # and the string in search() method
+
+        # db = fb.FirebaseDb()
+        # is_exist = db.is_email_exist()
+
         if re.search(regex, email):
             return True
         return False
