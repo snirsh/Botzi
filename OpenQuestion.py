@@ -3,7 +3,7 @@ from Question import *
 
 class OpenQuestion(Question):
 
-    def __init__(self, question):
-        Question.__init__(self, question)
+    def __init__(self, question, key):
+        Question.__init__(self, question, key)
 
 

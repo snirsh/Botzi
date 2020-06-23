@@ -39,6 +39,8 @@ bot: Bot = Bot(ACCESS_TOKEN)
 # resp = wit_client.message("Hi there!")
 # print('Yay! got Wit.ai response: ' + str(resp))
 
+# @app.route('/orgnization/campaigns', methods=['GET'])
+
 
 @app.route('/', methods=['GET', 'POST'])
 def receive_message():
