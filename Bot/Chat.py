@@ -1,6 +1,5 @@
-# _information_list = []
 
-from DataLoader import USER_TYPES, get_fields, get_validation_functions
+from DataLoader import USER_TYPES
 
 
 class Chat:

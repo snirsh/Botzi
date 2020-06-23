@@ -1,5 +1,5 @@
 import unittest
-from DataValidator import *
+from Bot.DataValidator import *
 
 
 class ValidTest(unittest.TestCase):

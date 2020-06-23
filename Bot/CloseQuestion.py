@@ -1,4 +1,4 @@
-from Question import *
+from Bot.Question import *
 
 
 class CloseQuestion(Question):

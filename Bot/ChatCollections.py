@@ -1,4 +1,4 @@
-from Chat import *
+from Bot.Chat import *
 
 
 class ChatCollections:

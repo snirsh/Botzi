@@ -1,5 +1,5 @@
-from CloseQuestion import *
-from OpenQuestion import *
+from Bot.CloseQuestion import *
+from Bot.OpenQuestion import *
 
 OPEN_QUESTION_ANS = "open_question"
 
