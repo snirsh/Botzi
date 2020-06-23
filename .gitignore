@@ -75,3 +75,5 @@ fabric.properties
 __pycache__
 .idea
 
+botzi.json
+botzi-dev-env.json

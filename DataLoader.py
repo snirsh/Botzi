@@ -1,31 +1,31 @@
 from QuestionTree import *
-from DataValidation import *
+from DataValidator import *
 
 USER_TYPES = ["volunteer", "campaign", "association"]
 
 
 def initialize_validation_NGO_function():
-    NGO_list = [None, None, DataValidation.valid_email, None]
+    NGO_list = [None, None, DataValidator.valid_email, None]
     return NGO_list
 
 
 def initialize_validation_volunteer_function():
-    volunteer_list = [None, DataValidation.valid_email, DataValidation.valid_phone_number, None, None, None, None, None]
+    volunteer_list = [None, DataValidator.valid_email, DataValidator.valid_phone_number, None, None, None, None, None]
     return volunteer_list
 
 
 def initialize_validation_campaign_function():
-    campaign_list = [None, None, DataValidation.valid_date, DataValidation.valid_date, None]
+    campaign_list = [None, None, DataValidator.valid_date, DataValidator.valid_date, None]
     return campaign_list
 
 
-def initialize_db_NGO_keyword():
-    NGO_list = ['name', 'contact name', 'mail', 'skills']
+def initialize_organization_keyword():
+    NGO_list = ['name', 'contact name', 'mail', 'phone']
     return NGO_list
 
 
 def initialize_db_volunteer_keyword():
-    volunteer_list = ['name', 'mail', 'phone number', 'password', 'skills', 'experience level', 'free time',
+    volunteer_list = ['name', 'mail', 'phone', 'password', 'skills', 'experience level', 'free time',
                     'preferences']
     return volunteer_list
 
@@ -41,7 +41,7 @@ def get_fields(p_type):
     elif p_type == USER_TYPES[1]:
         return initialize_db_campaign_keyword()
     else:
-        return initialize_db_NGO_keyword()
+        return initialize_organization_keyword()
 
 
 def get_validation_functions(p_type):
@@ -67,7 +67,7 @@ def initialize_static_questions(qtree):
     q4 = "What is the email of your association?"
     qtree.add_question_node(q3, q4)
 
-    q5 = "What are your association skills?"
+    q5 = "What is your association phone number? [xxx-xxxxxxx]"
     qtree.add_question_node(q4, q5)
 
     q6 = "What's your campaign name?"
