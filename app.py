@@ -2,20 +2,15 @@
 import os
 import requests
 
-import random
-from itertools import count
 import json
 from flask import Flask, request
 # from pymessenger import Bot
 from pymessenger.bot import Bot
-from ChatCollections import *
-from Question import *
-from Chat import *
-from QuestionTree import *
-import DataLoader as ql
+from Bot.ChatCollections import *
+from Bot.QuestionTree import *
 # from DataValidator import valid_answer
 from FirestoreDb import FirebaseDb
-from BotController import BotController
+from Bot.BotController import BotController
 
 app = Flask(__name__)
 ACCESS_TOKEN = os.environ['ACCESS_TOKEN']

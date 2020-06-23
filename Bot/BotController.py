@@ -1,8 +1,8 @@
-from ChatCollections import *
-from QuestionTree import *
+from Bot.ChatCollections import *
+from Bot.QuestionTree import *
 from pymessenger.bot import Bot
 import DataLoader as dl
-from DataValidator import DataValidator
+from Bot.DataValidator import DataValidator
 import os
 
 
