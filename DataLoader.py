@@ -4,6 +4,7 @@ from QuestionTree import *
 from DataValidation import *
 from googletrans import Translator
 import codecs
+
 USER_TYPES = ["volunteer", "campaign", "association"]
 
 
@@ -115,7 +116,7 @@ def make_file_for_translate(file_name):
     """
     flag = True
     script_dir = os.path.dirname(__file__)
-    file_for_translate_name = script_dir + r'\file_for_translate.txt'
+    file_for_translate_name = script_dir + r'\languages\file_for_translate.txt'
     f_read = codecs.open(file_name, "r", "utf-8")
     f_write = codecs.open(file_for_translate_name, "a", "utf-8")
     while f_read and f_write:
@@ -229,14 +230,14 @@ def load_question_data(file_name):
     return question_tree
 
 
-def make_translate_file_to_format_file(translate_file_name, english_file_name):
+def make_translate_to_language__file_to_format_file(translate_file_name, english_file_name, language):
     """
     :param translate_file_name: a name of translate file
     :param english_file_name: a name of the translate file before translate - in english
     :return: a name of a new translate file  in the appropriate format
     """
     script_dir = os.path.dirname(__file__)
-    format_file_name = script_dir + r'\translate_file_in_format.txt'
+    format_file_name = script_dir + f'\\languages\\translate_to_{language}_file_in_format.txt'
     translate_file = codecs.open(translate_file_name, 'r', "utf-8")
     english_file = codecs.open(english_file_name, 'r', "utf-8")
     format_file = codecs.open(format_file_name, 'a', "utf-8")
@@ -332,28 +333,51 @@ def translate_to_hebrew(translate_file_name):
     return f_eb_name
 
 
-def translate_to_france(translate_file_name):
+def translate_to_another_language(translate_file_name, language):
     """
     :param translate_file_name: a file with text in English
-    :return: a name of the translate file to france
+    :return: a name of the translate file to language
     """
     translator = Translator()
     f_en = open(translate_file_name, 'r')
     data = f_en.read()
-    result = translator.translate(data, src='en', dest='fr').text
+    result = translator.translate(data, src='en', dest=language).text
     script_dir = os.path.dirname(__file__)
-    f_fr_name = script_dir + r'\file_translate_to_france.txt'
-    f_fr = codecs.open(f_fr_name, 'w', "utf-8")
-    f_fr.write(result)
-    return f_fr_name
+    f_language_name = script_dir + f'\\languages\\file_translate_to_{language}.txt'
+    f_language = codecs.open(f_language_name, 'w', "utf-8")
+    f_language.write(result)
+    return f_language_name
 
+
+def get_language_question_collection(language):
+    """
+    :param language: of the question collection that we need for exe: 'he', 'en', 'fr'
+    :return: a question collection in the language 'language'
+    """
+    script_dir = os.path.dirname(__file__)
+    translate_format_file_name = f'translate_to_{language}_file_in_format.txt'
+    translate_format_file = script_dir + f'\\languages\\{translate_format_file_name}'
+    languages = script_dir + '\\languages'
+    for root, dir, files in os.walk(languages):
+        if translate_format_file_name in files:
+            return load_question_data(translate_format_file)
+    english_file = script_dir + f'\\languages\\english.txt'
+    for_translate_file = make_file_for_translate(english_file)
+    translate_file_in_language = translate_to_another_language(for_translate_file, language)
+    format_file_in_language = make_translate_to_language__file_to_format_file(translate_file_in_language, english_file,
+                                                                              language)
+    os.remove(for_translate_file)
+    os.remove(translate_file_in_language)
+    return load_question_data(format_file_in_language)
 
 
 if __name__ == '__main__':
-    script_dir = os.path.dirname(__file__)
-    english_file1 = script_dir + r'\english.txt'
-    for_translate_file1 = make_file_for_translate(english_file1)
-    #translate_file1 = translate_to_hebrew(for_translate_file1)
-    translate_file1 = translate_to_france(for_translate_file1)
-    format_file1 = make_translate_file_to_format_file(translate_file1, english_file1)
-    qtree1 = load_question_data(format_file1)
+    # script_dir = os.path.dirname(__file__)
+    # english_file1 = script_dir + r'\english.txt'
+    # for_translate_file1 = make_file_for_translate(english_file1)
+    # translate_file1 = translate_to_hebrew(for_translate_file1)
+    # translate_file1 = translate_to_another_language(for_translate_file1, 'fr')
+    # format_file1 = make_translate_to_language__file_to_format_file(translate_file1, english_file1, 'fr')
+    # qtree1 = load_question_data(format_file1)
+    qtree1 = get_language_question_collection('fr')
+    qtree2 = get_language_question_collection('he')
