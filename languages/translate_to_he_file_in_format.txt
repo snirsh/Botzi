@@ -1,0 +1,55 @@
+last_question:-
+answers_to:-
+questions:האם אתה ארגון, קמפיין או מתנדב?
+answer:ארגון, התנדבות, קמפיין
+key value:"
+last_question:האם אתה ארגון, קמפיין או מתנדב?
+answer_to:אִרגוּן
+question:מה שם הארגון שלך?
+answers:-
+key value:name
+last_question:מה שם הארגון שלך?
+answers_to:-
+question:אנא הכנס את שם איש הקשר של הארגון שלך
+answers:-
+key value:contact name
+last_question:אנא הכנס את שם איש הקשר של הארגון שלך
+answers_to:-
+question:מה הדוא"ל של הארגון שלך?
+answers:-
+key value:email
+last_question:מה הדוא"ל של הארגון שלך?
+answers_to:-
+question:מהן כישורי הארגון שלך?
+answers:-
+key value:skills
+last_question:האם אתה ארגון, קמפיין או מתנדב?
+answer_to:לְהִתְנַדֵב
+question:מה שמך?
+answers:-
+key value:name
+last_question:מה שמך?
+answers_to:-
+question:מה כתובת הדואר שלך?
+answers:-
+key value:mail
+last_question:מה כתובת הדואר שלך?
+answers_to:-
+question:אנא הכנס את מספר הטלפון שלך - [xxx-xxxxxxx]
+answers:-
+key value:phone
+last_question:אנא הכנס את מספר הטלפון שלך - [xxx-xxxxxxx]
+answers_to:-
+question:הזן את סיסמתך בבקשה
+answers:-
+key value:password
+last_question:הזן את סיסמתך בבקשה
+answers_to:-
+question:מהם תחומי הכישורים שלך? - [X, X, X ...]
+answers:-
+key value:skills
+last_question:מהם תחומי הכישורים שלך? - [X, X, X ...]
+answers_to:-
+question:מה הזמן הפנוי שלך?
+answers:-
+key value:free time
