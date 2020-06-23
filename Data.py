@@ -24,10 +24,11 @@ class Data:
         :param skill_name: string -  name of skill, could be in uppercase ore even some letters in the string
         :return: the object of the skill with the name skill_name in the data - object from Skill type
         """
-        skill_name = skill_name.lower()
-        skill_name = re.match(r'[a-z]+', skill_name).group(0)
+        other_skill = Skill(skill_name)
+        #skill_name = skill_name.lower()
+        #skill_name = re.match(r'[a-z]+', skill_name).group(0)
         for skill in self.get_skills_data():
-            if skill.get_name() == skill_name:
+            if skill == other_skill:
                 return skill
         return None
 
@@ -41,3 +42,4 @@ class Data:
         for skill in self.get_skills_data():
             if skill == other_skill:
                 return True
+        return False

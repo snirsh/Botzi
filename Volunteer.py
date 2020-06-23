@@ -28,6 +28,9 @@ class Volunteer:
                     skill_object.add_volunteer(self)
                     self._skills += [skill_object]
 
+    def get_unique_id(self):
+        return self._unique_id
+
     def is_catch(self):
         """
         :return: True if the volunteer is catch or not, else False
@@ -60,3 +63,14 @@ class Volunteer:
         for skill in self._skills:
             campaigns += skill.match_campaign_to_volunteer()
         return campaigns
+
+    def __eq__(self, other):
+        """
+        :param other: an Volunteer object
+        :return: True if the name and the  of the other Volunteer is equal to self(Volunteer)
+        """
+        if isinstance(other, Volunteer):
+            other_name = other.get_name()
+            other_unique_id = other.get_unique_id()
+            return self._name == other_name and other_unique_id == self._unique_id
+        return False
