@@ -16,13 +16,13 @@ class Skill:
 
     def is_in(self, skills):
         """
-
         :param skills: a list of skills (we got it from the data base)
         :return: True if the skill is in the data base, else False
         """
         for skill in skills:
             if self == skill:
                 return True
+        return False
 
     def get_name(self):
         """
@@ -40,8 +40,9 @@ class Skill:
             other_name = other_name.lower()
             # other_name = re.match(r'[a-z]+(\s)+[a-z]+', other_name).group(0)
             other_name = re.match(r'[a-z]+', other_name).group(0)
-            if self._name == other_name:  # TODO: replace with regex
-                return True
+            cur_name = self._name.lower()
+            cur_name = re.match(r'[a-z]+', cur_name).group(0)
+            return cur_name == other_name # TODO: replace with regex
         return False
 
     def add_volunteer(self, volunteer):

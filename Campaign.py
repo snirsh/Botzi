@@ -33,6 +33,9 @@ class Campaign:
                 self._skills += [(skill_object, skill_amount)]
                 self._skills_amounts[skill_name] = skill_amount
 
+    def get_unique_id(self):
+        return self._unique_id
+
     def get_name(self):
         """
         :return: the name of the campaign
@@ -122,3 +125,14 @@ class Campaign:
             for vol in skill_volunteers:
                 volunteers_names += [vol.get_name()]
             print('   for skill ' + skill_obj.get_name() + ' the volunteers names are: ' + str(volunteers_names))
+
+    def __eq__(self, other):
+        """
+        :param other: an Campaign object
+        :return: True if the name and the  of the other Volunteer is equal to self(Volunteer)
+        """
+        if isinstance(other, Campaign):
+            other_name = other.get_name()
+            other_unique_id = other.get_unique_id()
+            return self._name == other_name and other_unique_id == self._unique_id
+        return False
