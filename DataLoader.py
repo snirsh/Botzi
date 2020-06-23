@@ -26,7 +26,7 @@ def initialize_db_NGO_keyword():
 
 def initialize_db_volunteer_keyword():
     volunteer_list = ['name', 'mail', 'phone number', 'password', 'skills', 'experience level', 'free time',
-                    'preferences']
+                      'preferences']
     return volunteer_list
 
 
@@ -104,3 +104,44 @@ def initialize_static_questions(qtree):
     q17 = "What's your free time?"
     qtree.add_question_node(q16, q17, answers=['Free', 'open', 'here and there', 'only one day per week'])
 
+
+def load_question_data(file_name):
+    qtree = QuestionTree()
+    f = open(file_name, "r")
+    if f:
+        last_question = f.readline()
+        if last_question:  # if its not the end of the file
+            answer_to = f.readline()
+            question = f.readline()
+            answer = f.readline()
+
+            last_question = last_question.split(':')
+            if len(last_question) > 1:
+                last_question = last_question[1]
+            else:
+                last_question = ""
+
+            answer_to = answer_to.split(':')
+            if len(answer_to) > 1:
+                answer_to = answer_to[1]
+            else:
+                answer_to = ""
+
+            question = question.split(':')
+            if len(question) > 1:
+                question = question[1]
+            else:  # don't need to happen
+                question = ""
+
+            answer = answer.split(':')
+            if len(question) > 1:
+                answer = answer[1].split(',')
+            else:
+                answer = []
+
+            qtree.add_question_node(last_question, answer_to, question, answer)
+
+        else:
+            f.close()
+
+    f.close()
