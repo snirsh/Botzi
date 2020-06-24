@@ -103,6 +103,39 @@ class FirebaseDb:
             return self.add_campaign(mail)
         return self.organization_uiqueness(mail)
 
+    def get_volunteers_matches(self, campaign_mail):
+        camp_docs = self.campaign_collection.where(u'mail', u'==', f'{campaign_mail}').stream()
+        requirements = []
+        for doc in camp_docs:
+            details = doc.to_dict()
+            requirements.extend(details.get("requirements"))
+
+        volunteers_docs = self.volunteer_collection.stream()
+        matching_volunteers = []
+        for doc in volunteers_docs:
+            details = doc.to_dict()
+            for skill in requirements:
+                if skill in details.get("skills"):
+                    matching_volunteers.append(doc.id)
+
+        return matching_volunteers
+
+    def get_campaigns_matches(self, volunteer_mail):
+        volunteer_docs = self.volunteer_collection.where(u'mail', u'==', f'{volunteer_mail}').stream()
+        skills = []
+        for doc in volunteer_docs:
+            details = doc.to_dict()
+            skills.extend(details.get("skills"))
+
+        campaigns_docs = self.campaign_collection.stream()
+        matching_campaigns = []
+        for doc in campaigns_docs:
+            details = doc.to_dict()
+            for require in skills:
+                if require in details.get("requirements"):
+                    matching_campaigns.append(doc.id)
+        return matching_campaigns
+
     def update_volunteer(self, id, dic_update):
         """
 
@@ -185,7 +218,7 @@ if __name__ == '__main__':
 
     id = "UqmoV7XYPJO5A0aRDlja"
     refs = db.volunteer_collection
-    print("volunteer ref:")
+    print(f"volunteer ref: {refs.get(id)}")
 
     volname = refs.where(u'fname', u'==', 'danielle')
     print(f'{volname.get()}')
@@ -202,6 +235,9 @@ if __name__ == '__main__':
     for volunteer in volunteers:
         print(f'type of single volunteer is {type(volunteer)}')
         print(f'{volunteer.id} => {volunteer.to_dict()}')
+
+    volunteers_result = db.get_campaigns_matches("osnat@gmail.com")
+    print(volunteers_result)
 
 
 

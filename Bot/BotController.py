@@ -1,25 +1,52 @@
-from Bot.ChatCollections import *
-from Bot.QuestionTree import *
 from pymessenger.bot import Bot
+from pymessenger.graph_api import FacebookGraphApi
+from pymessenger.user_profile import UserProfileApi
+
+from Bot.ChatCollections import ChatCollections
+
+from Bot.QuestionTree import QuestionTree
 import DataLoader as dl
 from Bot.DataValidator import DataValidator
 import os
+import requests
+import json
 
 
 class BotController:
 
+    ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
+
     def __init__(self, db):
-        ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
-        self._bot = Bot(ACCESS_TOKEN)
+        self._bot = Bot(BotController.ACCESS_TOKEN)
+        self._fb = FacebookGraphApi(BotController.ACCESS_TOKEN)
         self._db = db
         self._chat_history = ChatCollections()
         self._qtree = QuestionTree()
         self._data_validator = DataValidator(self._db)
         dl.initialize_static_questions(self._qtree)
 
+    def first_response(self, recipient_id, sender_id, message):
+        print(message)
+
+        chat = self._chat_history.get_chat(recipient_id)
+
+        cur_qstn = self._qtree.get_first_msg()
+
+        self._send_quick_resp(recipient_id, cur_qstn.get_question(), cur_qstn.get_possible_answers())
+
+        chat.add_to_history(sender_id, cur_qstn.get_question())
+
+        return "Message Processed"
+
     def next_response(self, recipient_id, sender_id, ans):
         chat = self._chat_history.get_chat(recipient_id)
         is_chat_empty = chat.is_empty()
+
+        if is_chat_empty:
+            pdetails = self._get_personal_details(recipient_id)
+            greeting_message = f'{pdetails.get("fname")} {pdetails.get("lname")}!'
+            print(greeting_message)
+            self._send_message(recipient_id, greeting_message)
 
         # answer management:
         question_str = chat.get_last_qstn()
@@ -27,9 +54,9 @@ class BotController:
         if not is_chat_empty:
             chat.add_to_history(recipient_id, ans, last_question.get_key())
 
-        print(f'last_question: {question_str}')
-        print(f'answer: {ans}')
-        print(f'nums of msgs: {chat.get_msgs_num()}')
+        # print(f'last_question: {question_str}') TODO: remove
+        # print(f'answer: {ans}')
+        # print(f'nums of msgs: {chat.get_msgs_num()}')
         is_valid_ans = True
         if chat.get_msgs_num() >= 3:
             try:
@@ -60,6 +87,32 @@ class BotController:
             if len(chat.get_final_result()) != 0:
                 self._db.add_collection(chat.get_p_type(), chat.get_final_result())
                 self._chat_history.remove_chat(recipient_id)
+
+    def start(self):
+        request_endpoint = '{0}/me/messenger_profile'.format(self._bot.graph_url)
+        response = requests.post(
+            request_endpoint,
+            params=self._bot.auth_args,
+            data=json.dumps({"get_started": {"payload": "first"}}),
+            headers={'Content-Type': "application/json"}
+        )
+        result = response.json()
+        self._bot.send_raw(response)
+        return result
+
+    def _get_personal_details(self, recipient_id):
+        user_details_url = "https://graph.facebook.com/v2.6/%s" % recipient_id
+        user_details_params = {
+            'fields': 'fname, lname, locale, gender',
+            'access_token': BotController.ACCESS_TOKEN
+        }
+        user_details = requests.get(user_details_url, user_details_params).json()
+        # # my_text = 'Hey' + ' ' + user_details['first_name'] +' '+ user_details['last_name']
+        # # print(user_details['locale'])  # THE LANGUAGE OF THE USER
+        # # print(user_details['gender'])  # THE SEXE OF THE USER
+        # user_ = UserProfileApi(self._fb)
+        # print(user_.get(recipient_id, 'first_name'))
+        return user_details
 
     def _manage_questions(self, recipient_id, cur_qstn):
         """
