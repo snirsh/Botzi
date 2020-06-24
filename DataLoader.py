@@ -352,31 +352,36 @@ def translate_to_another_language(translate_file_name, language):
 def get_language_question_collection(language):
     """
     :param language: of the question collection that we need for exe: 'he', 'en', 'fr'
-    :return: a question collection in the language 'language'
+    :return: a question collection in the language 'language' if Google Translate does not recognize the language return
+     a question collection in English
     """
     script_dir = os.path.dirname(__file__)
     english_file = script_dir + f'\\languages\\english.txt'
     if language == 'en':
         return english_file
-    translate_format_file_name = f'translate_to_{language}_file_in_format.txt'
-    translate_format_file = script_dir + f'\\languages\\{translate_format_file_name}'
-    languages = script_dir + '\\languages'
-    for root, dir, files in os.walk(languages):
-        if translate_format_file_name in files:
-            return load_question_data(translate_format_file)
-    file_for_translate_name = 'file_for_translate.txt'
-    for_translate_file = script_dir + f'\\languages\\{file_for_translate_name}'
-    flag = True
-    for root, dir, files in os.walk(languages):
-        if file_for_translate_name in files:
-            flag = False
-    if flag:
-        for_translate_file = make_file_for_translate(english_file)
-    translate_file_in_language = translate_to_another_language(for_translate_file, language)
-    format_file_in_language = make_translate_to_language__file_to_format_file(translate_file_in_language, english_file,
-                                                                              language)
-    os.remove(translate_file_in_language)
-    return load_question_data(format_file_in_language)
+    try:
+        translate_format_file_name = f'translate_to_{language}_file_in_format.txt'
+        translate_format_file = script_dir + f'\\languages\\{translate_format_file_name}'
+        languages = script_dir + '\\languages'
+        for root, dir, files in os.walk(languages):
+            if translate_format_file_name in files:
+                return load_question_data(translate_format_file)
+        file_for_translate_name = 'file_for_translate.txt'
+        for_translate_file = script_dir + f'\\languages\\{file_for_translate_name}'
+        flag = True
+        for root, dir, files in os.walk(languages):
+            if file_for_translate_name in files:
+                flag = False
+        if flag:
+            for_translate_file = make_file_for_translate(english_file)
+        translate_file_in_language = translate_to_another_language(for_translate_file, language)
+        format_file_in_language = make_translate_to_language__file_to_format_file(translate_file_in_language,
+                                                                                  english_file,
+                                                                                  language)
+        os.remove(translate_file_in_language)
+        return load_question_data(format_file_in_language)
+    except:
+        return english_file
 
 
 if __name__ == '__main__':
@@ -390,3 +395,5 @@ if __name__ == '__main__':
     qtree1 = get_language_question_collection('fr')
     qtree3 = get_language_question_collection('en')
     qtree2 = get_language_question_collection('he')
+    qtree5 = get_language_question_collection('hekjs')
+    print('a')
