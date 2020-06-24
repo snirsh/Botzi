@@ -1,0 +1,44 @@
+-
+-
+Are you Organization, Campaign or Volunteer?
+organization,volunteer,campaign
+Are you Organization, Campaign or Volunteer?
+organization
+What's your organization name?
+-
+What's your organization name?
+-
+Please enter contact name of your organization 
+-
+Please enter contact name of your organization 
+-
+What is the email of your organization?
+-
+What is the email of your organization?
+-
+What are your organization skills?
+-
+Are you Organization, Campaign or Volunteer?
+volunteer
+What's your Name?
+-
+What's your Name?
+-
+What's your mail address?
+-
+What's your mail address?
+-
+Please enter your phone number - [xxx-xxxxxxx]
+-
+Please enter your phone number - [xxx-xxxxxxx]
+-
+Please Enter your password
+-
+Please Enter your password
+-
+What are your skills domains? - [X,X,X...]
+-
+What are your skills domains? - [X,X,X...]
+-
+What's your free time?
+-
