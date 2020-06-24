@@ -1,0 +1,55 @@
+last_question:-
+answers_to:-
+questions:あなたは組織、キャンペーン、またはボランティアですか？
+answer:組織、ボランティア、キャンペーン
+key value:"
+last_question:あなたは組織、キャンペーン、またはボランティアですか？
+answer_to:組織
+question:あなたの組織名は何ですか？
+answers:-
+key value:name
+last_question:あなたの組織名は何ですか？
+answers_to:-
+question:組織の連絡先名を入力してください
+answers:-
+key value:contact name
+last_question:組織の連絡先名を入力してください
+answers_to:-
+question:あなたの組織のメールアドレスは何ですか？
+answers:-
+key value:email
+last_question:あなたの組織のメールアドレスは何ですか？
+answers_to:-
+question:あなたの組織のスキルは何ですか？
+answers:-
+key value:skills
+last_question:あなたは組織、キャンペーン、またはボランティアですか？
+answer_to:ボランティア
+question:あなたの名前を教えて？
+answers:-
+key value:name
+last_question:あなたの名前を教えて？
+answers_to:-
+question:あなたのメールアドレスは何ですか？
+answers:-
+key value:mail
+last_question:あなたのメールアドレスは何ですか？
+answers_to:-
+question:電話番号を入力してください-[xxx-xxxxxxx]
+answers:-
+key value:phone
+last_question:電話番号を入力してください-[xxx-xxxxxxx]
+answers_to:-
+question:パスワードを入力してください
+answers:-
+key value:password
+last_question:パスワードを入力してください
+answers_to:-
+question:あなたのスキルドメインは何ですか？ -[X、X、X ...]
+answers:-
+key value:skills
+last_question:あなたのスキルドメインは何ですか？ -[X、X、X ...]
+answers_to:-
+question:あなたの自由な時間は何ですか？
+answers:-
+key value:free time
