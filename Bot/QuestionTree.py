@@ -1,7 +1,7 @@
 from Bot.CloseQuestion import *
 from Bot.OpenQuestion import *
 
-OPEN_QUESTION_ANS = "open_question"
+OPEN_QUESTION_ANS = ''
 
 
 class QuestionNode:
@@ -19,7 +19,7 @@ class QuestionNode:
     def get_qstn_obj(self):
         return self._question
 
-    def set_next(self, question_node, answer=""):
+    def set_next(self, question_node, answer=OPEN_QUESTION_ANS):
         answer = answer.lower()
         self._answers[answer] = question_node
 
@@ -33,10 +33,14 @@ class QuestionTree:
         self.root = None
 
     def get_first_msg(self):
+        """
+
+        :return: Question object
+        """
         if self.root is not None:
             return self.root.get_qstn_obj()
 
-    def add_question_node(self, lst_question, question, key, answer="", answers=None):
+    def add_question_node(self, lst_question, question, key, answer=OPEN_QUESTION_ANS, answers=None):
         """
         add answer to tree
         :param key:
@@ -70,7 +74,7 @@ class QuestionTree:
     # def get_question_obj(self, question):
     #     return self.find_question(question).get_qstn_obj()
 
-    def get_next_question(self, question, ans=""):
+    def get_next_question(self, question, ans=OPEN_QUESTION_ANS):
         """
         get the next question that comes after the answer
         :param question: string question
@@ -117,7 +121,7 @@ class QuestionTree:
 
         return None
 
-    def _add_question_node_helper(self, question, last_question_node=None, answer=""):
+    def _add_question_node_helper(self, question, last_question_node=None, answer=OPEN_QUESTION_ANS):
         """
         :param question: current question object to add
         :param last_question_node: last node

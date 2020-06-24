@@ -1,52 +1,13 @@
+
+import os
 from Bot.QuestionTree import *
-
 from Bot.DataValidator import *
-
 from googletrans import Translator
-
+import codecs
 
 USER_TYPES = ["volunteer", "campaign", "association"]
 
-
-def initialize_validation_NGO_function():
-    NGO_list = [None, None, DataValidator.valid_email, None]
-    return NGO_list
-
-
-def initialize_validation_volunteer_function():
-    volunteer_list = [None, DataValidator.valid_email, DataValidator.valid_phone_number, None, None, None, None, None]
-    return volunteer_list
-
-
-def initialize_validation_campaign_function():
-    campaign_list = [None, None, DataValidator.valid_date, DataValidator.valid_date, None]
-    return campaign_list
-
-
-def initialize_organization_keyword():
-    NGO_list = ['name', 'contact name', 'mail', 'phone']
-    return NGO_list
-
-
-def initialize_db_volunteer_keyword():
-    volunteer_list = ['name', 'mail', 'phone', 'password', 'skills', 'experience level', 'free time',
-                    'preferences']
-    return volunteer_list
-
-
-def initialize_db_campaign_keyword():
-    campaign_list = ['name', 'requirements', 'start date', 'end date', 'city']
-    return campaign_list
-
-
-def get_fields(p_type):
-    if p_type == USER_TYPES[0]:
-        return initialize_db_volunteer_keyword()
-    elif p_type == USER_TYPES[1]:
-        return initialize_db_campaign_keyword()
-    else:
-        return initialize_organization_keyword()
-
+EMPTY_SIGN_T = '~'
 
 def initialize_static_questions(qtree):
     q1 = "Are you Association, Campaign or Volunteer?"
@@ -106,9 +67,10 @@ def make_file_for_translate(file_name):
     :return: the name of the new file that ready to translate without the data 'key_value'
     """
     flag = True
-    file_for_translate_name = r'C:\Users\osnat\botzi\file_for_translate.txt'
-    f_read = open(file_name, "r")
-    f_write = open(file_for_translate_name, "a")
+    script_dir = os.path.dirname(__file__)
+    file_for_translate_name = script_dir + r'\languages\file_for_translate.txt'
+    f_read = codecs.open(file_name, "r", "utf-8")
+    f_write = codecs.open(file_for_translate_name, "a", "utf-8")
     while f_read and f_write:
         last_question = f_read.readline()
         if not last_question == '"""' and last_question:  # if its not the end of the file
@@ -121,13 +83,13 @@ def make_file_for_translate(file_name):
             if len(last_question) > 1 and '"' not in last_question[1]:
                 last_question = last_question[1]
             else:
-                last_question = "-\n"
+                last_question = f'{EMPTY_SIGN_T}\n'
 
             answer_to = answer_to.split(':')
             if len(answer_to) > 1 and '"' not in answer_to[1]:
                 answer_to = answer_to[1]
             else:
-                answer_to = "-\n"
+                answer_to = f'{EMPTY_SIGN_T}\n'
 
             question = question.split(':')
             if len(question) > 1 and '"' not in question[1]:
@@ -139,13 +101,13 @@ def make_file_for_translate(file_name):
             if len(answers) > 1 and '"' not in answers[1]:
                 answers = answers[1]
             else:
-                answers = "-\n"
+                answers = f'{EMPTY_SIGN_T}\n'
 
             key_value = key_value.split(':')
             if len(key_value) > 1 and '"' not in key_value[1]:
                 key_value = key_value[1]
             else:
-                key_value = "\n"
+                key_value = f'{EMPTY_SIGN_T}\n'
 
             f_write.write(last_question)
             f_write.write(answer_to)
@@ -169,48 +131,54 @@ def load_question_data(file_name):
     :return: the QuestionTree collection of the file 'file_name'
     """
     question_tree = QuestionTree()
-    f = open(file_name, "r")
+    f = codecs.open(file_name, "r", "utf-8")
     while f:
         last_question = f.readline()
-        if not last_question == '"""' and last_question:  # if its not the end of the file
+        if not last_question == '"""\r\n' and last_question:  # if its not the end of the file
             answer_to = f.readline()
             question = f.readline()
             answers = f.readline()
             key_value = f.readline()
 
             last_question = last_question.split(':')
-            if len(last_question) > 1 and '"' not in last_question[1] or '-' not in last_question[1]:
+            if len(last_question) > 1 and '"' not in last_question[1] and EMPTY_SIGN_T not in last_question[1]:
                 last_question = last_question[1].rstrip()
             else:
                 last_question = ""
 
             answer_to = answer_to.split(':')
-            if len(answer_to) > 1 and '"' not in answer_to[1] or '-' not in answer_to[1]:
+            if len(answer_to) > 1 and '"' not in answer_to[1] and EMPTY_SIGN_T not in answer_to[1]:
                 answer_to = answer_to[1].rstrip()
             else:
                 answer_to = ""
 
             question = question.split(':')
-            if len(question) > 1 and '"' not in question[1] or '-' not in question[1]:
+            if len(question) > 1 and '"' not in question[1] and EMPTY_SIGN_T not in question[1]:
                 question = question[1].rstrip()
             else:  # don't need to happen
                 raise ValueError("error: no question text")
 
             answers = answers.split(':')
-            if len(answers) > 1 and '"' not in answers[1] or '-' not in answers[1]:
+            if len(answers) > 1 and '"' not in answers[1] and EMPTY_SIGN_T not in answers[1]:
                 answers = answers[1].split(',')
-                answers[-1] = answers[-1].rstrip()
+                for i in range(len(answers)):
+                    answers[i] = answers[i].strip()
+                # answers[-1] = answers[-1].rstrip()
             else:
                 answers = None
 
             key_value = key_value.split(':')
-            if len(key_value) > 1 and '"' not in key_value[1] or '-' not in key_value[1]:
+            if len(key_value) > 1 and '"' not in key_value[1] or EMPTY_SIGN_T not in key_value[1]:
                 key_value = key_value[1].rstrip()
             else:
                 key_value = ""
 
-            question_tree.add_question_node(last_question, question, answer_to, answers)
-            # question_tree.add_question_node(last_question, question, key_value, answer_to, answers)
+            # question_tree.add_question_node(last_question, question, answer_to, answers)
+            last_question = last_question.strip()
+            question = question.strip()
+            answer_to = answer_to.strip()
+            key_value = key_value.strip()
+            question_tree.add_question_node(last_question, question, key_value, answer_to, answers)
 
         else:
             f.close()
@@ -220,16 +188,17 @@ def load_question_data(file_name):
     return question_tree
 
 
-def make_translate_file_to_format_file(translate_file_name, english_file_name):
+def make_translate_to_language__file_to_format_file(translate_file_name, english_file_name, language):
     """
     :param translate_file_name: a name of translate file
     :param english_file_name: a name of the translate file before translate - in english
     :return: a name of a new translate file  in the appropriate format
     """
-    format_file_name = r'C:\Users\osnat\botzi\translate_file_in_format.txt'
-    translate_file = open(translate_file_name, 'r')
-    english_file = open(english_file_name, 'r')
-    format_file = open(format_file_name, 'a')
+    script_dir = os.path.dirname(__file__)
+    format_file_name = script_dir + f'\\languages\\translate_to_{language}_file_in_format.txt'
+    translate_file = codecs.open(translate_file_name, 'r', "utf-8")
+    english_file = codecs.open(english_file_name, 'r', "utf-8")
+    format_file = codecs.open(format_file_name, 'a', "utf-8")
 
     while translate_file and english_file and format_file:
 
@@ -315,15 +284,90 @@ def translate_to_hebrew(translate_file_name):
     f_en = open(translate_file_name, 'r')
     data = f_en.read()
     result = translator.translate(data, src='en', dest='he').text
-    f_en_name = r'C:\Users\osnat\botzi\file_translate_to_hebrew.txt'
-    f_eb = open(f_en_name, 'w')
+    script_dir = os.path.dirname(__file__)
+    f_eb_name = script_dir + r'\file_translate_to_hebrew.txt'
+    f_eb = codecs.open(f_eb_name, 'w', "utf-8")
     f_eb.write(result)
-    return f_en_name
+    return f_eb_name
+
+
+def translate_to_another_language(translate_file_name, language):
+    """
+    :param translate_file_name: a file with text in English
+    :return: a name of the translate file to language
+    """
+    translator = Translator()
+    f_en = open(translate_file_name, 'r')
+    data = f_en.read()
+    result = translator.translate(data, src='en', dest=language).text
+    script_dir = os.path.dirname(__file__)
+    f_language_name = script_dir + f'\\languages\\file_translate_to_{language}.txt'
+    f_language = codecs.open(f_language_name, 'w', "utf-8")
+    f_language.write(result)
+    return f_language_name
+
+
+def get_language_question_collection(language):
+    """
+    :param language: of the question collection that we need for exe: 'he', 'en', 'fr'
+    :return: a question collection in the language 'language' if Google Translate does not recognize the language return
+     a question collection in English
+    """
+    script_dir = os.path.dirname(__file__)
+    # in english_file do not put ':' besides after the type of the data because we do split by that character to get the
+    # data. only like that - last_question:Please enter your phone number - [xxx-xxxxxxx]
+    # but not like that - last_question:Please enter your phone number : [xxx-xxxxxxx]
+    # that's will make error in our algorithm
+    # also in every data that he is empty put " , for exe: last_question:" (that's good - do only like that)
+    #                                                      last_question: (that's bad - do not do like that,
+    #                                                                                                 we are missing ")
+    english_file = script_dir + f'\\languages\\english.txt'
+    if language == 'en':
+        return load_question_data(english_file)
+    try:
+        translate_format_file_name = f'translate_to_{language}_file_in_format.txt'
+        translate_format_file = script_dir + f'\\languages\\{translate_format_file_name}'
+        languages = script_dir + '\\languages'
+        for root, dir, files in os.walk(languages):
+            if translate_format_file_name in files:
+                return load_question_data(translate_format_file)
+        file_for_translate_name = 'file_for_translate.txt'
+        for_translate_file = script_dir + f'\\languages\\{file_for_translate_name}'
+        flag = True
+        for root, dir, files in os.walk(languages):
+            if file_for_translate_name in files:
+                flag = False
+        if flag:
+            for_translate_file = make_file_for_translate(english_file)
+        translate_file_in_language = translate_to_another_language(for_translate_file, language)
+        format_file_in_language = make_translate_to_language__file_to_format_file(translate_file_in_language,
+                                                                                  english_file,
+                                                                                  language)
+        os.remove(translate_file_in_language)
+        return load_question_data(format_file_in_language)
+    except:
+        return load_question_data(english_file)
 
 
 if __name__ == '__main__':
-    english_file1 = r'C:\Users\osnat\botzi\english.txt'
-    for_translate_file1 = make_file_for_translate(english_file1)
-    translate_file1 = translate_to_hebrew(for_translate_file1)
-    format_file1 = make_translate_file_to_format_file(translate_file1, english_file1)
-    qtree1 = load_question_data(format_file1)
+    # script_dir = os.path.dirname(__file__)
+    # english_file1 = script_dir + r'\english.txt'
+    # for_translate_file1 = make_file_for_translate(english_file1)
+    # translate_file1 = translate_to_hebrew(for_translate_file1)
+    # translate_file1 = translate_to_another_language(for_translate_file1, 'fr')
+    # format_file1 = make_translate_to_language__file_to_format_file(translate_file1, english_file1, 'fr')
+    # qtree1 = load_question_data(format_file1)
+    # qtree1 = get_language_question_collection('fr')
+    # qtree3 = get_language_question_collection('en')
+    # qtree2 = get_language_question_collection('he')
+    # qtree4 = get_language_question_collection('ja')
+    # qtree5 = get_language_question_collection('hekjs')
+    # qtree6 = get_language_question_collection('persian')
+    # print('a')
+    path = r"\Languages\english.txt"
+    etree = get_language_question_collection("en")
+    fq = etree.get_first_msg()
+    next = etree.get_next_question(fq.get_question())
+    nnext = etree.get_next_question(next.get_question(), "volunteer")
+    print(nnext.get_question())
+

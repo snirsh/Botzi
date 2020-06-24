@@ -3,7 +3,8 @@ from pymessenger.graph_api import FacebookGraphApi
 from pymessenger.user_profile import UserProfileApi
 
 from Bot.ChatCollections import ChatCollections
-
+from Bot.OpenQuestion import OpenQuestion
+from Bot.CloseQuestion import CloseQuestion
 from Bot.QuestionTree import QuestionTree
 import DataLoader as dl
 from Bot.DataValidator import DataValidator
@@ -24,57 +25,99 @@ class BotController:
         self._qtree = QuestionTree()
         self._data_validator = DataValidator(self._db)
         dl.initialize_static_questions(self._qtree)
+        self._has_permission = False
 
-    def first_response(self, recipient_id, sender_id, message):
-        print(message)
+    def first_response(self, recipient_id, sender_id):
 
         chat = self._chat_history.get_chat(recipient_id)
 
-        cur_qstn = self._qtree.get_first_msg()
+        pdetails = self._get_personal_details(recipient_id)
 
-        self._send_quick_resp(recipient_id, cur_qstn.get_question(), cur_qstn.get_possible_answers())
+        if not pdetails.get("error"):
+            self._has_permission = True
+            lan = pdetails.get("locale")
+            if lan:
+                lan = lan.split("_")[0]
+            else:
+                lan = "en"
+            self._qtree = dl.get_language_question_collection(lan)
+            cur_qstn = self._qtree.get_first_msg()
 
-        chat.add_to_history(sender_id, cur_qstn.get_question())
+            name = f'{pdetails.get("first_name")} {pdetails.get("last_name")}'
+            greeting_message = f'{cur_qstn.get_question()} {name}!'
+            chat.add_to_final_result('name', f'{name}')
+
+            print(greeting_message)
+            self._send_message(recipient_id, greeting_message)
+
+            cur_qstn = self._qtree.get_next_question(cur_qstn.get_question())
+            cur_qstn = self._qtree.get_next_question(cur_qstn.get_question())
+            self._send_quick_resp(recipient_id, cur_qstn.get_question(), cur_qstn.get_possible_answers())
+
+            chat.add_to_history(sender_id, cur_qstn.get_question(), "")
+        else:
+            self._qtree = dl.get_language_question_collection("en")
+            cur_qstn = self._qtree.get_first_msg()
+
+            greeting_message = f'{cur_qstn.get_question()}!'
+
+            print(greeting_message)
+            self._send_message(recipient_id, greeting_message)
+
+            cur_qstn = self._qtree.get_next_question(cur_qstn.get_question())
+            self._send_quick_resp(recipient_id, cur_qstn.get_question(), cur_qstn.get_possible_answers())
+
+            chat.add_to_history(sender_id, cur_qstn.get_question(), "")
 
         return "Message Processed"
 
     def next_response(self, recipient_id, sender_id, ans):
+        # get chat history and relevant questions:
         chat = self._chat_history.get_chat(recipient_id)
+        # self._qtree = dl.get_language_question_collection("en")
+
+        # check if this is the start of the conversation
         is_chat_empty = chat.is_empty()
 
+        # answer management - parse the answer:
         if is_chat_empty:
+            cur_qstn = self._qtree.get_first_msg()
             pdetails = self._get_personal_details(recipient_id)
-            greeting_message = f'{pdetails.get("fname")} {pdetails.get("lname")}!'
-            print(greeting_message)
+            name = f'{pdetails.get("first_name")} {pdetails.get("last_name")}'
+            greeting_message = f'{cur_qstn.get_question()} {name}!'
+            chat.add_to_final_result('name', f'{name}')
+            print(greeting_message)  # TODO: remove
             self._send_message(recipient_id, greeting_message)
-
-        # answer management:
-        question_str = chat.get_last_qstn()
-        last_question = self._qtree.find_question(question_str)
-        if not is_chat_empty:
+            last_question = cur_qstn
+            question_str = last_question.get_question()
+        else:
+            question_str = chat.get_last_qstn()
+            last_question = self._qtree.find_question(question_str)
             chat.add_to_history(recipient_id, ans, last_question.get_key())
 
-        # print(f'last_question: {question_str}') TODO: remove
-        # print(f'answer: {ans}')
-        # print(f'nums of msgs: {chat.get_msgs_num()}')
+
+        print(f'last_question: {question_str}')  # TODO: remove
+        print(f'answer: {ans}')
+        print(f'nums of msgs: {chat.get_msgs_num()}')
         is_valid_ans = True
-        if chat.get_msgs_num() >= 3:
+
+        if chat.get_msgs_num() >= 2:
             try:
                 self._data_validator.valid_answer(ans, last_question.get_key(), chat)
             except ValueError as err:
                 is_valid_ans = False
                 self._send_message(recipient_id, err.__str__())
 
-        # question management:
-        if is_chat_empty:
-            cur_qstn = self._qtree.get_first_msg()
-        elif not is_valid_ans:
-            # self._send_message(recipient_id, "invalid response")
+        # if is_chat_empty:
+        #     cur_qstn = self._qtree.get_first_msg()
+        if not is_valid_ans:
             cur_qstn = self._qtree.find_question(question_str)
         elif self._qtree.is_close(question_str):
             cur_qstn = self._qtree.get_next_question(question_str, ans)
+            print(f'next questions will be closed: {cur_qstn}')
         else:
             cur_qstn = self._qtree.get_next_question(question_str)
+            print(f'next question will be opened: {cur_qstn}')
 
         if cur_qstn is not None:
             chat.add_to_history(sender_id, cur_qstn.get_question(), "")
@@ -103,10 +146,12 @@ class BotController:
     def _get_personal_details(self, recipient_id):
         user_details_url = "https://graph.facebook.com/v2.6/%s" % recipient_id
         user_details_params = {
-            'fields': 'fname, lname, locale, gender',
+            'fields': 'first_name, last_name, locale, gender',
             'access_token': BotController.ACCESS_TOKEN
         }
         user_details = requests.get(user_details_url, user_details_params).json()
+        print(user_details)
+
         # # my_text = 'Hey' + ' ' + user_details['first_name'] +' '+ user_details['last_name']
         # # print(user_details['locale'])  # THE LANGUAGE OF THE USER
         # # print(user_details['gender'])  # THE SEXE OF THE USER

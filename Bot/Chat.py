@@ -29,6 +29,9 @@ class Chat:
 
         self._history.append((sender_id, message, msg_key))
 
+    def add_to_final_result(self, key, value):
+        self._final_result[key] = value
+
     def get_msgs_num(self):
         """
         :return: the amount of messages that the user send to me

@@ -1,24 +1,29 @@
 # Python libraries that we need to import for our bot
 import os
+
 import json
 import requests
 
 import json
 from flask import Flask, request
+from flask_cors import CORS
+
 # from pymessenger import Bot
 from pymessenger.bot import Bot
-from Bot.ChatCollections import *
-from Bot.QuestionTree import *
-# from DataValidator import valid_answer
+# from Bot.ChatCollections import *
+# from Bot.QuestionTree import *
+
 from FirestoreDb import FirebaseDb
 from Bot.BotController import BotController
 
 app = Flask(__name__)
+CORS(app)
+
 ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
 VERIFY_TOKEN = os.environ['VERIFY_TOKEN']
 
-CHATS = ChatCollections()
-TREE = QuestionTree()
+# CHATS = ChatCollections()
+# TREE = QuestionTree()
 DataBase = FirebaseDb()
 bot_controller = BotController(DataBase)
 
@@ -28,24 +33,24 @@ bot_controller = BotController(DataBase)
 # question = ["Hello!!\n Are You a NGO or VOLUNTEER?", "Are you a male/female?", "Do you have a car?"]
 
 flag = True
-bot: Bot = Bot(ACCESS_TOKEN)
+# bot: Bot = Bot(ACCESS_TOKEN)
 
-# BLOCK
-# wit_client = Wit(WIT_ACCESS_TOKEN)
-# resp = wit_client.message("Hi there!")
-# print('Yay! got Wit.ai response: ' + str(resp))
-
-# @app.route('/orgnization/campaigns', methods=['GET'])
 
 @app.route('/app/volunteer_matches/', methods=['GET'])
 def volunteer_matchers():
+    print("Front need me")
     if request.method == 'GET':
-        mail = request.form.get("mail")
+        print(request.args)
+        print(request.data)
+        print(request.json)
+        mail = request.args.get("mail")
         matches = DataBase.get_campaigns_matches(mail)
         response = {
             "volunteer_mail": mail,
-            "body": matches
+            "body": matches,
+            "Yael": "I'm busy"  # TODO: remove
         }
+        print(response)
         return response
 
 
@@ -63,11 +68,11 @@ def receive_message():
     # user details:
     recipient_id = message['sender']['id']
     sender_id = message['recipient']['id']
-    ans = message['message'].get('text')
 
-    # if message.get('postback'):
-    #     bot_controller.first_response(recipient_id, sender_id, ans)
+    if message.get('postback'):
+        bot_controller.first_response(recipient_id, sender_id)
     if message.get('message'):
+        ans = message['message'].get('text')
         bot_controller.next_response(recipient_id, sender_id, ans)
 
     return "Message Processed"
@@ -86,6 +91,6 @@ def start(port=5000):
     bot_controller.start()
 
 
-if __name__ == "__main__":
-    q1 = TREE.get_first_msg()
-    q2 = TREE.get_next_question(q1, "Volunteer")
+# if __name__ == "__main__":
+#     q1 = TREE.get_first_msg()
+#     q2 = TREE.get_next_question(q1, "Volunteer")
