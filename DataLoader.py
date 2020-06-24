@@ -356,6 +356,13 @@ def get_language_question_collection(language):
      a question collection in English
     """
     script_dir = os.path.dirname(__file__)
+    # in english_file do not put ':' besides after the type of the data because we do split by that character to get the
+    # data. only like that - last_question:Please enter your phone number - [xxx-xxxxxxx]
+    # but not like that - last_question:Please enter your phone number : [xxx-xxxxxxx]
+    # that's will make error in our algorithm
+    # also in every data that he is empty put " , for exe: last_question:" (that's good - do only like that)
+    #                                                      last_question: (that's bad - do not do like that,
+    #                                                                                                 we are missing ")
     english_file = script_dir + f'\\languages\\english.txt'
     if language == 'en':
         return english_file
@@ -395,5 +402,7 @@ if __name__ == '__main__':
     qtree1 = get_language_question_collection('fr')
     qtree3 = get_language_question_collection('en')
     qtree2 = get_language_question_collection('he')
+    qtree4 = get_language_question_collection('ja')
     qtree5 = get_language_question_collection('hekjs')
+    qtree6 = get_language_question_collection('persian')
     print('a')
