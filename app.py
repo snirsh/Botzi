@@ -1,5 +1,6 @@
 # Python libraries that we need to import for our bot
 import os
+import json
 import requests
 
 import json
@@ -36,6 +37,17 @@ bot: Bot = Bot(ACCESS_TOKEN)
 
 # @app.route('/orgnization/campaigns', methods=['GET'])
 
+@app.route('/app/volunteer_matches/', methods=['GET'])
+def volunteer_matchers():
+    if request.method == 'GET':
+        mail = request.form.get("mail")
+        matches = DataBase.get_campaigns_matches(mail)
+        response = {
+            "volunteer_mail": mail,
+            "body": matches
+        }
+        return response
+
 
 @app.route('/', methods=['GET', 'POST'])
 def receive_message():
@@ -48,14 +60,17 @@ def receive_message():
     output = request.get_json()
     message = output.get('entry')[0].get('messaging')[0]
 
-    if message.get('message'):
-        recipient_id = message['sender']['id']
-        sender_id = message['recipient']['id']
-        ans = message['message'].get('text')
+    # user details:
+    recipient_id = message['sender']['id']
+    sender_id = message['recipient']['id']
+    ans = message['message'].get('text')
 
+    # if message.get('postback'):
+    #     bot_controller.first_response(recipient_id, sender_id, ans)
+    if message.get('message'):
         bot_controller.next_response(recipient_id, sender_id, ans)
 
-        return "Message Processed"
+    return "Message Processed"
 
 
 def verify_fb_token(token_sent):
@@ -68,16 +83,7 @@ def verify_fb_token(token_sent):
 
 def start(port=5000):
     app.run(port=port)
-
-    request_endpoint = '{0}/me/messenger_profile'.format(bot.graph_url)
-    response = requests.post(
-        request_endpoint,
-        params=bot.auth_args,
-        data=json.dumps({"get_started": {"payload": "first"}}),
-        headers={'Content-Type': "application/json"}
-    )
-    result = response.json()
-    Bot.send_raw(response)
+    bot_controller.start()
 
 
 if __name__ == "__main__":
