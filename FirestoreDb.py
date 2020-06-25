@@ -36,7 +36,7 @@ class FirebaseDb:
         """
         self.volunteer_uiqueness(volunteers_data.get('mail'))
         response = self.volunteer_collection.add({
-            u'fname': volunteers_data.get("name").lower(),
+            u'fname': volunteers_data.get("name"),
             u'skills': volunteers_data.get("skills"),
             u'mail': volunteers_data.get("mail"),
             u'free_time': volunteers_data.get("free_time"),
@@ -120,8 +120,9 @@ class FirebaseDb:
 
         return matching_volunteers
 
-    def get_campaigns_matches(self, volunteer_mail):
-        volunteer_docs = self.volunteer_collection.where(u'mail', u'==', f'{volunteer_mail}').stream()
+    def get_campaigns_matches(self, volunteer_id):
+        # volunteer_docs = self.volunteer_collection.where(u'mail', u'==', f'{volunteer_mail}').stream()
+        volunteer_docs = self.volunteer_collection.where(u'userId', u'==', f'{volunteer_id}').stream()
         skills = []
         for doc in volunteer_docs:
             details = doc.to_dict()

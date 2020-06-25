@@ -1,0 +1,70 @@
+last_question:~
+answers_to:~
+question: Bonjour
+answers:~
+key:"
+last_question: Bonjour
+answers_to:~
+question: Quel est ton nom?
+answers:~
+key: name
+last_question: Quel est ton nom?
+answers_to:~
+question: Bienvenue et merci de m'avoir contacté! tout d'abord, veuillez choisir laquelle vous décrit le mieux votre organisation, bénévole
+answer: Bienvenue et merci de m'avoir contacté! veuillez d'abord choisir celle qui vous décrit le mieux
+key:"
+last_question: Hé, super! quel est le nom de votre organisation?
+answer_to:~
+question: Hé, super! quel est le nom de votre organisation?
+answers:~
+key: name
+last_question: Quel est le numéro de votre organisation (numéro d'enregistrement en Israël) ~
+answers_to: Quel est le numéro de votre organisation (numéro d'enregistrement en Israël) ~
+question: Cool, et que fait l'organisation?
+answers:~
+key: organization number
+last_question: Cool, et que fait l'organisation?
+answers_to:~
+question: J'ai juste besoin d'un contact pour parler des volontaires et des campagnes, quel est son nom?
+answers:~
+key: description
+last_question: J'ai juste besoin d'un contact pour parler des volontaires et des campagnes, quel est son nom?
+answers_to:~
+question: Génial, a-t-il une adresse e-mail?
+answers:~
+key: contact name
+last_question: Génial, a-t-il une adresse e-mail?
+answers_to:~
+question: Super, et enfin, quel est son numéro de téléphone?
+answers:~
+key: mail
+last_question: Super, et enfin, quel est son numéro de téléphone?
+answers_to:~
+question: Et une dernière question, quel est le domaine dans lequel votre organisation opère?
+answers:~
+key: phone
+last_question: Bienvenue et merci de m'avoir contacté! veuillez d'abord choisir celle qui vous décrit le mieux comme bénévole
+answers_to: J'ai besoin de votre e-mail pour l'inscription, quelle est votre adresse e-mail ??
+question:~
+answers: J'ai besoin de votre e-mail pour l'inscription, quelle est votre adresse e-mail ??
+key: area
+last_question:~
+answer_to: Et quel est votre numéro de téléphone, s'il vous plaît?
+question:~
+answers: Et quel est votre numéro de téléphone, s'il vous plaît?
+key: mail
+last_question:~
+answers_to: Où habitez-vous?
+question:~
+answers: Où habitez-vous?
+key: phone
+last_question:~
+answers_to: Et combien de temps avez-vous pendant la semaine pour cela?
+question: Une seule fois ..., jusqu'à 6 heures, une journée par semaine, plus !!!
+answers: Où habitez-vous?
+key: city
+last_question:~
+answers_to: Et juste une dernière question, pourriez-vous s'il vous plaît écrire vos compétences dans lesquelles vous êtes prêt à faire du bénévolat ~
+question:
+answer:
+key: free time

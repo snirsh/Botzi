@@ -1,0 +1,54 @@
+~
+~
+ Hello
+~
+ Hello
+~
+ What's your name?
+~
+ What's your name?
+~
+ Welcome and thank you for reaching me! first, please choose which one describes you best organization, volunteer
+ Welcome and thank you for reaching me! first, please choose which one describes you best organization
+ Hey, super! what's the name of your organization?
+~
+ Hey, super! what's the name of your organization?
+~
+ What's your organization's number (Registered number in Israel)~
+ What's your organization's number (Registered number in Israel)~
+ Cool, and what does the organization do?
+~
+ Cool, and what does the organization do?
+~
+ I just need a contact to talk to about the volunteers and campaigns, what's his name?
+~
+ I just need a contact to talk to about the volunteers and campaigns, what's his name?
+~
+ Awesome, does he have an email address?
+~
+ Awesome, does he have an email address?
+~
+ Great, and just lastly, what's his phone number?
+~
+ Great, and just lastly, what's his phone number?
+~
+ And one last question, what's the area in which your organization operates?
+~
+ Welcome and thank you for reaching me! first, please choose which one describes you best volunteer
+ I need your email for the sign-up, what's your email address??
+~
+ I need your email for the sign-up, what's your email address??
+~
+ And what's your phone number, please?
+~
+ And what's your phone number, please?
+~
+ Where do you live?
+~
+ Where do you live?
+~
+ And how much time do you have during the week for this?
+ Just one time... , Up to 6 hours, A day a week, More!!!
+ Where do you live?
+~
+ And just one last question, would you please write your skills in which you're willing to volunteer~

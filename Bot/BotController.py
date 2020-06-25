@@ -52,7 +52,8 @@ class BotController:
 
             cur_qstn = self._qtree.get_next_question(cur_qstn.get_question())
             cur_qstn = self._qtree.get_next_question(cur_qstn.get_question())
-            self._send_quick_resp(recipient_id, cur_qstn.get_question(), cur_qstn.get_possible_answers())
+            self._manage_questions_sending(recipient_id, cur_qstn)
+            # self._send_quick_resp(recipient_id, cur_qstn.get_question(), cur_qstn.get_possible_answers())
 
             chat.add_to_history(sender_id, cur_qstn.get_question(), "")
         else:
@@ -65,7 +66,8 @@ class BotController:
             self._send_message(recipient_id, greeting_message)
 
             cur_qstn = self._qtree.get_next_question(cur_qstn.get_question())
-            self._send_quick_resp(recipient_id, cur_qstn.get_question(), cur_qstn.get_possible_answers())
+            self._manage_questions_sending(recipient_id, cur_qstn)
+            # self._send_quick_resp(recipient_id, cur_qstn.get_question(), cur_qstn.get_possible_answers())
 
             chat.add_to_history(sender_id, cur_qstn.get_question(), "")
 
@@ -74,27 +76,28 @@ class BotController:
     def next_response(self, recipient_id, sender_id, ans):
         # get chat history and relevant questions:
         chat = self._chat_history.get_chat(recipient_id)
-        # self._qtree = dl.get_language_question_collection("en")
 
         # check if this is the start of the conversation
         is_chat_empty = chat.is_empty()
 
         # answer management - parse the answer:
         if is_chat_empty:
-            cur_qstn = self._qtree.get_first_msg()
-            pdetails = self._get_personal_details(recipient_id)
-            name = f'{pdetails.get("first_name")} {pdetails.get("last_name")}'
-            greeting_message = f'{cur_qstn.get_question()} {name}!'
-            chat.add_to_final_result('name', f'{name}')
-            print(greeting_message)  # TODO: remove
-            self._send_message(recipient_id, greeting_message)
-            last_question = cur_qstn
-            question_str = last_question.get_question()
+            self.first_response(recipient_id, sender_id)
+            # self._qtree = dl.get_language_question_collection("en")
+            # cur_qstn = self._qtree.get_first_msg()
+            # pdetails = self._get_personal_details(recipient_id)
+            # name = f'{pdetails.get("first_name")} {pdetails.get("last_name")}'
+            # greeting_message = f'{cur_qstn.get_question()} {name}!'
+            # chat.add_to_final_result('name', f'{name}')
+            # print(greeting_message)  # TODO: remove
+            # self._send_message(recipient_id, greeting_message)
+            # last_question = cur_qstn
+            # question_str = last_question.get_question()
+            return "Message Processed"
         else:
             question_str = chat.get_last_qstn()
             last_question = self._qtree.find_question(question_str)
             chat.add_to_history(recipient_id, ans, last_question.get_key())
-
 
         print(f'last_question: {question_str}')  # TODO: remove
         print(f'answer: {ans}')
@@ -122,7 +125,7 @@ class BotController:
         if cur_qstn is not None:
             chat.add_to_history(sender_id, cur_qstn.get_question(), "")
 
-        finished = self._manage_questions(recipient_id, cur_qstn)
+        finished = self._manage_questions_sending(recipient_id, cur_qstn)
 
         if finished:
             chat.update_final_result()
@@ -159,7 +162,7 @@ class BotController:
         # print(user_.get(recipient_id, 'first_name'))
         return user_details
 
-    def _manage_questions(self, recipient_id, cur_qstn):
+    def _manage_questions_sending(self, recipient_id, cur_qstn):
         """
 
         :param recipient_id:
