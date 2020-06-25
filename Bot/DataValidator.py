@@ -22,6 +22,7 @@ class DataValidator:
        :param email: need to be appropriate to regex
        :return: if is a valid email address
        """
+        email = email.lower()
         regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
 
         if not re.search(regex, email):

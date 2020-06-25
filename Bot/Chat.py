@@ -67,10 +67,9 @@ class Chat:
         return lst
 
     def update_final_result(self):
+        print(self._history)
         for idx, record in enumerate(self._history):
-            if idx >= 3 and idx % 2 != 0 and record[2] != "":
-                # record[2] =  question key
-                # self._history[i] = record. record[1] = answer
+            if idx >= 1 and record[2] != "":
                 field = record[2]
                 field = field.replace(' ', '_')
                 self._final_result[field] = self._history[idx][1]
@@ -87,7 +86,7 @@ class Chat:
 
 
 if __name__ == '__main__':
-    history = [('111305403958818', 'are you association, campaign or volunteer?', ''), ('2921984041247793', 'volunteer', 'type'), ('111305403958818', "what's your name?", ''), ('2921984041247793', 'Daniel', 'name'), ('111305403958818', "what's your mail address?", ''), ('2921984041247793', 'sdsdf@fdf.com', 'mail'), ('111305403958818', 'please enter your phone number : [xxx-xxxxxxx]', ''), ('2921984041247793', '0543332221', 'phone'), ('111305403958818', 'please enter your password', ''), ('2921984041247793', '123456', 'password'), ('111305403958818', 'what are your skills domains? :[x,x,x...]', ''), ('2921984041247793', 'skill1, sk', 'skills'), ('111305403958818', "what's your free time?", ''), ('2921984041247793', 'here and there', 'free time')]
+    history = [('100834055011426', "what's your name?", ''), ('3151275694916094', 'osnagdhg jf]\\', 'name'), ('100834055011426', 'welcome and thank you for reaching me! first, please choose which one describes you best', ''), ('3151275694916094', 'volunteer', '"'), ('100834055011426', "i need your email for the sign-up, what's your email address??", ''), ('3151275694916094', 'orem@gmail.com', 'mail'), ('100834055011426', "and what's your phone number, please?", ''), ('3151275694916094', '99999999999', 'phone'), ('100834055011426', "and what's your phone number, please?", ''), ('3151275694916094', '0000000000', 'phone'), ('100834055011426', 'where do you live?', ''), ('3151275694916094', 'jdjg', 'city'), ('100834055011426', "and just one last question, would you please write your skills in which you're willing to volunteer", ''), ('3151275694916094', 'jfghildg', 'skills'), ('3151275694916094', 'jfghildg', 'skills'), ('3151275694916094', 'jfghildg', 'skills'), ('3151275694916094', 'jfghildg', 'skills'), ('3151275694916094', 'jfghildg', 'skills')]
     chat = Chat(2921984041247793)
     chat.set_history(history)
     chat.update_final_result()

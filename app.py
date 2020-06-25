@@ -43,10 +43,10 @@ def volunteer_matchers():
         print(request.args)
         print(request.data)
         print(request.json)
-        mail = request.args.get("mail")
-        matches = DataBase.get_campaigns_matches(mail)
+        id = request.args.get("volunteerID")
+        matches = DataBase.get_campaigns_matches(id)
         response = {
-            "volunteer_mail": mail,
+            "volunteer_mail": id,
             "body": matches,
             "Yael": "I'm busy"  # TODO: remove
         }
