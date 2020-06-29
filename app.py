@@ -1,15 +1,16 @@
 # Python libraries that we need to import for our bot
-import os
 
-import json
-import requests
+# import os
 
-import json
+# import requests
+# import json
+
+from config.SetEnvironmentVars import *
 from flask import Flask, request
 from flask_cors import CORS
 
 # from pymessenger import Bot
-from pymessenger.bot import Bot
+# from pymessenger.bot import Bot
 # from Bot.ChatCollections import *
 # from Bot.QuestionTree import *
 
