@@ -69,7 +69,7 @@ def make_file_for_translate(file_name):
     """
     flag = True
     script_dir = os.path.dirname(__file__)
-    file_for_translate_name = script_dir + r'\languages\file_for_translate.txt'
+    file_for_translate_name = script_dir + r'/languages/file_for_translate.txt'
     f_read = codecs.open(file_name, "r", "utf-8")
     f_write = codecs.open(file_for_translate_name, "a", "utf-8")
 
@@ -186,7 +186,7 @@ def make_translate_to_language__file_to_format_file(translate_file_name, english
     :return: a name of a new translate file  in the appropriate format
     """
     script_dir = os.path.dirname(__file__)
-    format_file_name = script_dir + f'\\languages\\translate_to_{language}_file_in_format.txt'
+    format_file_name = script_dir + rf'/languages/translate_to_{language}_file_in_format.txt'
     translate_file = codecs.open(translate_file_name, 'r', "utf-8")
     english_file = codecs.open(english_file_name, 'r', "utf-8")
     format_file = codecs.open(format_file_name, 'a', "utf-8")
@@ -274,7 +274,7 @@ def translate_to_hebrew(translate_file_name):
     data = f_en.read()
     result = translator.translate(data, src='en', dest='he').text
     script_dir = os.path.dirname(__file__)
-    f_eb_name = script_dir + r'\file_translate_to_hebrew.txt'
+    f_eb_name = script_dir + r'/file_translate_to_hebrew.txt'
     f_eb = codecs.open(f_eb_name, 'w', "utf-8")
     f_eb.write(result)
     return f_eb_name
@@ -291,7 +291,7 @@ def translate_to_another_language(translate_file_name, language):
     data = f_en.read()
     result = translator.translate(data, src='en', dest=language).text
     script_dir = os.path.dirname(__file__)
-    f_language_name = script_dir + f'\\languages\\file_translate_to_{language}.txt'
+    f_language_name = script_dir + rf'/languages/file_translate_to_{language}.txt'
     f_language = codecs.open(f_language_name, 'w', "utf-8")
     f_language.write(result)
     return f_language_name
@@ -311,18 +311,18 @@ def get_language_question_collection(language):
     # also in every data that he is empty put " , for exe: last_question:" (that's good - do only like that)
     #                                                      last_question: (that's bad - do not do like that,
     #                                                                                                 we are missing ")
-    english_file = script_dir + f'\\languages\\english.txt'
+    english_file = script_dir + rf'/languages/english.txt'
     if language == 'en':
         return load_question_data(english_file)
     try:
         translate_format_file_name = f'translate_to_{language}_file_in_format.txt'
-        translate_format_file = script_dir + f'\\languages\\{translate_format_file_name}'
-        languages = script_dir + '\\languages'
+        translate_format_file = script_dir + rf'/languages/{translate_format_file_name}'
+        languages = script_dir + r'/languages'
         for root, dir, files in os.walk(languages):
             if translate_format_file_name in files:
                 return load_question_data(translate_format_file)
         file_for_translate_name = 'file_for_translate.txt'
-        for_translate_file = script_dir + f'\\languages\\{file_for_translate_name}'
+        for_translate_file = script_dir + rf'/languages/{file_for_translate_name}'
         flag = True
         for root, dir, files in os.walk(languages):
             if file_for_translate_name in files:
