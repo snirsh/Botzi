@@ -1,0 +1,76 @@
+last_question:
+answer_to:
+question:שלום
+answer:
+key:
+last_question:שלום
+answer_to:
+question:מה שמך?
+answer:
+key: name
+last_question:מה שמך?
+answer_to:
+question:ברוך הבא ותודה שהגעת אלי! ראשית, אנא בחר איזה מתאר אתך בצורה הטובה ביותר
+answer:ארגון, מתנדב
+key:
+last_question:ברוך הבא ותודה שהגעת אלי! ראשית, אנא בחר איזה מתאר אתך בצורה הטובה ביותר
+answer_to:אִרגוּן
+question:היי, סופר! מה שם הארגון שלך?
+answer:
+key: name
+last_question:היי, סופר! מה שם הארגון שלך?
+answer_to:
+question:מה מספר הארגון שלך (המספר הרשום בישראל)
+answer:
+key: organization number
+last_question:מה מספר הארגון שלך (המספר הרשום בישראל)
+answer_to:
+question:מגניב, ומה הארגון עושה?
+answer:
+key: description
+last_question:מגניב, ומה הארגון עושה?
+answer_to:
+question:אני רק צריך איש קשר כדי לדבר איתו על המתנדבים והקמפיינים, איך קוראים לו?
+answer:
+key: contact name
+last_question:אני רק צריך איש קשר כדי לדבר איתו על המתנדבים והקמפיינים, איך קוראים לו?
+answer_to:
+question:מדהים, האם יש לו כתובת דוא"ל?
+answer:
+key: mail
+last_question:מדהים, האם יש לו כתובת דוא"ל?
+answer_to:
+question:נהדר, ובסופו של דבר, מה מספר הטלפון שלו?
+answer:
+key: phone
+last_question:נהדר, ובסופו של דבר, מה מספר הטלפון שלו?
+answer_to:
+question:ושאלה אחרונה, מה התחום בו הארגון שלך פועל?
+answer:
+key: area
+last_question:ברוך הבא ותודה שהגעת אלי! ראשית, אנא בחר איזה מתאר אתך בצורה הטובה ביותר
+answer_to:מתנדב
+question:אני זקוק לדוא"ל שלך לצורך ההרשמה, מה כתובת הדוא"ל שלך ??
+answer:
+key: mail
+last_question:אני זקוק לדוא"ל שלך לצורך ההרשמה, מה כתובת הדוא"ל שלך ??
+answer_to:
+question:ומה מספר הטלפון שלך בבקשה?
+answer:
+key: phone
+last_question:ומה מספר הטלפון שלך בבקשה?
+answer_to:
+question:היכן אתה מתגורר?
+answer:
+key: city
+last_question:היכן אתה מתגורר?
+answer_to:
+question:וכמה זמן יש לך במשך השבוע הזה?
+answer:רק פעם אחת ..., עד 6 שעות, יום בשבוע, עוד !!!
+key: free time
+last_question:היכן אתה מתגורר?
+answer_to:
+question:ורק שאלה אחרונה אחת, האם בבקשה תכתוב את הכישורים שלך שבהם אתה מוכן להתנדב
+answer:
+key: skills
+END_FILE

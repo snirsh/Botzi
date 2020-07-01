@@ -1,5 +1,5 @@
 
-from DataLoader import USER_TYPES
+from Bot.DataLoader import USER_TYPES
 
 
 class Chat:

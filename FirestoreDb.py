@@ -1,6 +1,5 @@
-import os
 from google.cloud import firestore
-from DataLoader import USER_TYPES
+from Bot.DataLoader import USER_TYPES
 
 
 class FirebaseDb:

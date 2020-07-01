@@ -1,12 +1,11 @@
 from pymessenger.bot import Bot
 from pymessenger.graph_api import FacebookGraphApi
-from pymessenger.user_profile import UserProfileApi
 
 from Bot.ChatCollections import ChatCollections
 from Bot.OpenQuestion import OpenQuestion
 from Bot.CloseQuestion import CloseQuestion
 from Bot.QuestionTree import QuestionTree
-import DataLoader as dl
+from Bot import DataLoader as dl
 from Bot.DataValidator import DataValidator
 import os
 import requests
@@ -83,16 +82,6 @@ class BotController:
         # answer management - parse the answer:
         if is_chat_empty:
             self.first_response(recipient_id, sender_id)
-            # self._qtree = dl.get_language_question_collection("en")
-            # cur_qstn = self._qtree.get_first_msg()
-            # pdetails = self._get_personal_details(recipient_id)
-            # name = f'{pdetails.get("first_name")} {pdetails.get("last_name")}'
-            # greeting_message = f'{cur_qstn.get_question()} {name}!'
-            # chat.add_to_final_result('name', f'{name}')
-            # print(greeting_message)  # TODO: remove
-            # self._send_message(recipient_id, greeting_message)
-            # last_question = cur_qstn
-            # question_str = last_question.get_question()
             return "Message Processed"
         else:
             question_str = chat.get_last_qstn()

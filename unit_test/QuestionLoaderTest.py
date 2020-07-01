@@ -1,5 +1,4 @@
-import DataLoader as ql
-from Bot import QuestionTree as qt
+from Bot import QuestionTree as qt, DataLoader as ql
 
 if __name__ == '__main__':
     tree = qt.QuestionTree()
