@@ -1,0 +1,55 @@
+last_question:-
+answers_to:-
+questions:Êtes-vous une organisation, une campagne ou un bénévole?
+answer:organisation, bénévole, campagne
+key value:"
+last_question:Êtes-vous une organisation, une campagne ou un bénévole?
+answer_to:organisation
+question:Quel est le nom de votre organisation?
+answers:-
+key value:name
+last_question:Quel est le nom de votre organisation?
+answers_to:-
+question:Veuillez saisir le nom du contact de votre organisation
+answers:-
+key value:contact name
+last_question:Veuillez saisir le nom du contact de votre organisation
+answers_to:-
+question:Quel est l'email de votre organisation?
+answers:-
+key value:email
+last_question:Quel est l'email de votre organisation?
+answers_to:-
+question:Quelles sont vos compétences d'organisation?
+answers:-
+key value:skills
+last_question:Êtes-vous une organisation, une campagne ou un bénévole?
+answer_to:bénévole
+question:Comment tu t'appelles?
+answers:-
+key value:name
+last_question:Comment tu t'appelles?
+answers_to:-
+question:Quelle est votre adresse mail?
+answers:-
+key value:mail
+last_question:Quelle est votre adresse mail?
+answers_to:-
+question:Veuillez entrer votre numéro de téléphone - [xxx-xxxxxxx]
+answers:-
+key value:phone
+last_question:Veuillez entrer votre numéro de téléphone - [xxx-xxxxxxx]
+answers_to:-
+question:S'il vous plait entrez votre mot de passe
+answers:-
+key value:password
+last_question:S'il vous plait entrez votre mot de passe
+answers_to:-
+question:Quels sont vos domaines de compétences? - [X, X, X ...]
+answers:-
+key value:skills
+last_question:Quels sont vos domaines de compétences? - [X, X, X ...]
+answers_to:-
+question:Quel est ton temps libre?
+answers:-
+key value:free time

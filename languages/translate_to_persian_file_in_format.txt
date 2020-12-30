@@ -1,0 +1,55 @@
+last_question:-
+answers_to:-
+questions:آیا شما سازمان ، کمپین یا داوطلب هستید؟
+answer:سازمان ، داوطلب ، کارزار
+key value:"
+last_question:آیا شما سازمان ، کمپین یا داوطلب هستید؟
+answer_to:سازمان
+question:نام سازمان شما چیست؟
+answers:-
+key value:name
+last_question:نام سازمان شما چیست؟
+answers_to:-
+question:لطفاً نام مخاطب سازمان خود را وارد کنید
+answers:-
+key value:contact name
+last_question:لطفاً نام مخاطب سازمان خود را وارد کنید
+answers_to:-
+question:ایمیل سازمان شما چیست؟
+answers:-
+key value:email
+last_question:ایمیل سازمان شما چیست؟
+answers_to:-
+question:مهارتهای سازمان شما چیست؟
+answers:-
+key value:skills
+last_question:آیا شما سازمان ، کمپین یا داوطلب هستید؟
+answer_to:داوطلب
+question:اسمت چیه؟
+answers:-
+key value:name
+last_question:اسمت چیه؟
+answers_to:-
+question:آدرس پستی شما چیست؟
+answers:-
+key value:mail
+last_question:آدرس پستی شما چیست؟
+answers_to:-
+question:لطفا شماره تلفن خود را وارد کنید - [xxx-xxxxxxx]
+answers:-
+key value:phone
+last_question:لطفا شماره تلفن خود را وارد کنید - [xxx-xxxxxxx]
+answers_to:-
+question:لطفا رمز عبور خود را وارد کنید
+answers:-
+key value:password
+last_question:لطفا رمز عبور خود را وارد کنید
+answers_to:-
+question:حوزه های مهارت شما چیست؟ - [X ، X ، X ...]
+answers:-
+key value:skills
+last_question:حوزه های مهارت شما چیست؟ - [X ، X ، X ...]
+answers_to:-
+question:وقت آزاد شما چیست؟
+answers:-
+key value:free time

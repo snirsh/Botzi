@@ -1,0 +1,56 @@
+last_question:"
+answers_to:"
+questions:Are you Organization, Campaign or Volunteer?
+answer:organization,volunteer,campaign
+key value:"
+last_question:Are you Organization, Campaign or Volunteer?
+answer_to:organization
+question:What's your organization name?
+answer:"
+key value:name
+last_question:What's your organization name?
+answer_to:" 
+question:Please enter contact name of your organization 
+answer:"
+key value:contact name
+last_question:Please enter contact name of your organization 
+answer_to:"
+question:What is the email of your organization?
+answer:"
+key value:email
+last_question:What is the email of your organization?
+answer_to:"
+question:What are your organization skills?
+answer:"
+key value:skills
+last_question:Are you Organization, Campaign or Volunteer?
+answer_to:volunteer
+question:What's your Name?
+answer:"
+key value:name
+last_question:What's your Name?
+answer_to:"
+question:What's your mail address?
+answer:"
+key value:mail
+last_question:What's your mail address?
+answer_to:"
+question:Please enter your phone number - [xxx-xxxxxxx]
+answer:"
+key value:phone
+last_question:Please enter your phone number - [xxx-xxxxxxx]
+answer_to:"
+question:Please Enter your password
+answer:"
+key value:password
+last_question:Please Enter your password
+answer_to:"
+question:What are your skills domains? - [X,X,X...]
+answer:"
+key value:skills
+last_question:What are your skills domains? - [X,X,X...]
+answer_to:"
+question:What's your free time?
+answer:"
+key value:free time
+"""
